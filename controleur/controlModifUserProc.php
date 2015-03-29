@@ -11,9 +11,9 @@
 			$ret = User::modifyUserPWD($idUser,$pwd);
 			break;
 		case '2':
-			$mail = $_POST['email'];
+			$mail = $_POST['newmail'];
 			$idUser = $_POST['idUser'];
-			$ret = User::modifyUserEmail($idUser, $email);
+			$ret = User::modifyUserEmail($idUser, $mail);
 			break;
 	}
 	if($ret == True) {
