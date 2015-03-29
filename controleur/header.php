@@ -10,3 +10,4 @@
 		<link rel="stylesheet" href="../style.css" />
 		<link rel="icon" type="image/png" href="../Images/favicon.png" />
 		<script src="../js/jquery-1.11.2.min.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>

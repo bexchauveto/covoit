@@ -56,7 +56,7 @@ $("#affichage").show();
 <div id="page">
 	<div id="menu">
 		<ul>
-			<li><a href="index.php">Accueil</a></li>
+			<li><a href="./controlIndex.php">Accueil</a></li>
 			<li><a href="#">Longs trajets</a></li>
 			<li>
 				<ul>
@@ -87,7 +87,7 @@ $("#affichage").show();
 					<a href="./controlProfil.php">Mon Profil</a>
 			</li>
 			<li>
-					<a href="#">Deconnexion</a>
+					<a href="./controlDeconnexion.php">Deconnexion</a>
 				<?php }
 				else { ?>
 				<div id="connexion">

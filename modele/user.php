@@ -60,6 +60,18 @@ class User {
 
 	}
 
+	public static function modifyUserPwd($idUser, $pwd) {
+		global $mysqli;
+		$req = $mysqli->query("UPDATE user SET password = '$pwd' WHERE id = '$idUser'") or die ("Error");
+		return $req;
+	}
+
+	public static function modifyUserEmail($idUser, $email) {
+		global $mysqli;
+		$req = $mysqli->query("UPDATE user SET mail = '$email' WHERE id = '$idUser'") or die ("Error");
+		return $req;
+	}
+
 	public static function getUserByID($idUser){
 		global $mysqli;
 		$req = $mysqli->query("SELECT * FROM user WHERE id ='$idUser'") or die ("ERROR");

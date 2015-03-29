@@ -6,7 +6,7 @@
 	$pseudo = $_SESSION['user'];
 	$req = $mysqli->query("SELECT * FROM user WHERE pseudo = '$pseudo'");
 	$tuple = $req->fetch_array();
-	include("../vue/vueProfil.php");
+	include("../vue/vueModifPWD.php");
 	include("./footer.php");
 
 ?>

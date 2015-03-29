@@ -3,7 +3,7 @@ function verifmdp()
 {
 var val1   = document.getElementById("password").value,
     val2   = document.getElementById("password2").value,
-    resultmapd = document.getElementById("resultmdp");
+    resultmpd = document.getElementById("resultmdp");
  
 if(val1!=val2){
   resultmdp.innerHTML="Veillez rentrer deux mot de passes identiques!";
@@ -11,7 +11,6 @@ if(val1!=val2){
 else {
   resultmdp.innerHTML="Valide !";
 }
- 
 }
 </script>
 
