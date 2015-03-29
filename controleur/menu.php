@@ -55,7 +55,7 @@ $("#affichage").show();
 	</script>
 	<div id="page">
 		<header>
-			<img src="../images/banniere.jpg" alt="Banniere Covoit'INSA" id="banniere" />
+			<img src="../images/banniere.png" alt="Banniere Covoit'INSA" id="banniere" />
 			<nav>
 				<div id='cssmenu'>
 					<ul>
