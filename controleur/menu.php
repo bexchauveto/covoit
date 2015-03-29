@@ -44,66 +44,70 @@ $("#affichage").show();
 
 </head>
 <body>
-<script type="text/javascript">
-	$(function() {
-		$('div[id="inscript"]').hide();
-		$('#inscription').click(function() {
-      		$('div[id="inscript"]').load( "../vue/vueInscription.php");
-      		$('div[id="inscript"]').toggle();
-  		});
-	});
-</script>
-<div id="page">
-	<div id="menu">
-		<ul>
-			<li><a href="./controlIndex.php">Accueil</a></li>
-			<li><a href="#">Longs trajets</a></li>
-			<li>
-				<ul>
-					<li><a href="#">Vers l'INSA</a></li>
-					<li><a href="#">Au départ de l'INSA</a></li>
-				</ul>
-			</li>
-			<li><a href="#">Courts trajets</a></li>
-			<li>
-				<ul>
-					<li><a href="#">Trajets quotidiens</a></li>
-					<li><a href="#">Courses</a></li>
-					<li><a href="#">Soirées</a></li>
-				</ul>
-			</li>
-			<li><a href="#">Loisirs</a></li>
-			<li>
-				<ul>
-					<li><a href="#">Ski</a></li>
-					<li><a href="#">Randonnée</a></li>
-					<li><a href="#">Plage</a></li>
-					<li><a href="#">Andorre</a></li>
-				</ul>
-			</li>
-			<li>
-				<?php
-				if(isset($_SESSION['user'])){?>
-					<a href="./controlProfil.php">Mon Profil</a>
-			</li>
-			<li>
-					<a href="./controlDeconnexion.php">Deconnexion</a>
-				<?php }
-				else { ?>
-				<div id="connexion">
-				<form method="post" action="../controleur/controlConnexion.php">
-					<fieldset> 
-						<input type="pseudo" name="pseudo" placeholder="Identifiant"/>
-						<input type="password" name="password" placeholder="Mot de passe" />
-						<div id="submit"><input type="submit" id="submit" value="OK" /></div>
-					</fieldset>
-				</form>
+	<script type="text/javascript">
+		$(function() {
+			$('div[id="inscript"]').hide();
+			$('#inscription').click(function() {
+				$('div[id="inscript"]').load( "../vue/vueInscription.php");
+				$('div[id="inscript"]').toggle();
+			});
+		});
+	</script>
+	<div id="page">
+		<header>
+			<img src="../images/banniere.jpg" alt="Banniere Covoit'INSA" id="banniere" />
+			<nav>
+				<div id='cssmenu'>
+					<ul>
+					   <li class='active'><a href='index.html'><span>Accueil</span></a></li>
+					   <li class='has-sub'><a href='#'><span>Longs trajets</span></a>
+						  <ul>
+							 <li><a href='#'><span>Vers l'INSA</span></a></li>
+							 <li class='last'><a href='#'><span>Au départ de l'INSA</span></a></li>
+						  </ul>
+					   </li>
+					   <li class='has-sub'><a href='#'><span>Courts trajets</span></a>
+						  <ul>
+							 <li><a href='#'><span>Trajets quotidiens</span></a></li>
+							 <li><a href='#'><span>Courses</span></a></li>
+							 <li class='last'><a href='#'><span>Soirées</span></a></li>
+						  </ul>
+					   </li>
+					   <li class='has-sub last'><a href='#'><span>Loisirs</span></a>
+						  <ul>
+							 <li><a href='#'><span>Ski</span></a></li>
+							 <li><a href='#'><span>Randonnée</span></a></li>
+							 <li><a href='#'><span>Plage</span></a></li>
+							 <li class='last'><a href='#'><span>Andorre</span></a></li>
+						  </ul>
+					   </li>
+					</ul>
 				</div>
-				</li>
-				<li>					
-					<a id="inscription" >Inscription</a>
-				<?php } ?> 
-			</li>
-		</ul>
-	</div>
-	<div id='inscript'></div>
+				<div id="identification">
+					<li>
+						<?php
+						if(isset($_SESSION['user'])){?>
+							<a href="./controlProfil.php">Mon Profil</a>
+					</li>
+					<li>
+							<a href="./controlDeconnexion.php">Deconnexion</a>
+						<?php }
+						else { ?>
+						<div id="connexion">
+						<form method="post" action="../controleur/controlConnexion.php">
+							<fieldset> 
+								<input type="pseudo" name="pseudo" placeholder="Identifiant"/>
+								<input type="password" name="password" placeholder="Mot de passe" />
+								<div id="submit"><input type="submit" id="submit" value="OK" /></div>
+							</fieldset>
+						</form>
+						</div>
+						</li>
+						<li>					
+							<a id="inscription" >Inscription</a>
+						<?php } ?> 
+					</li>
+				</div>
+			</nav>
+		</header>
+		<div id='inscript'></div>
