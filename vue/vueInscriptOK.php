@@ -1,0 +1,1 @@
+<p>Vous êtes inscrit, vous serez redirigé sous peu vers votre profil</p>
