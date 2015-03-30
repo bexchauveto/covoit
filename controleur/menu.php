@@ -55,7 +55,7 @@ $("#affichage").show();
 	</script>
 	<div id="page">
 		<header>
-			<img src="../images/banniere.png" alt="Banniere Covoit'INSA" id="banniere" />
+			<a href="./controlIndex.php"><img src="../images/banniere.png" alt="Banniere Covoit'INSA" id="banniere" /></a>
 			<nav>
 				<div id='cssmenu'>
 					<ul>
@@ -90,12 +90,7 @@ $("#affichage").show();
 					   <!--<div class="identification">-->
 					   <?php
 						if(isset($_SESSION['user'])){
-							if ($_SESSION['page'] == "profil") {
-								echo ("<li class='active'>");
-							}
-							else {
-								echo ("<li>");
-							}?>
+						?><li <?php if ($_SESSION['page'] == "profil") {echo "class='active'";} ?>>
 							<a href="./controlProfil.php">Mon Profil</a>
 						</li>
 						<li>
