@@ -46,51 +46,51 @@ $("#affichage").show();
 <body>
 	<script type="text/javascript">
 		$(function() {
-			$('div[id="inscript"]').hide();
+			$('div[id="form-conn-insc"]').hide();
 			$('#inscription').click(function() {
-				$('div[id="inscript"]').load( "../vue/vueInscription.php");
-				$('div[id="inscript"]').toggle();
+				$('div[id="form-conn-insc"]').load( "../vue/vueInscription.php");
+				$('div[id="form-conn-insc"]').toggle();
+			});
+
+			$('#connexion').click(function() {
+				$('div[id="form-conn-insc"]').load( "../vue/vueConnexion.php");
+				$('div[id="form-conn-insc"]').toggle();
 			});
 		});
 	</script>
+	
 	<div id="page">
 		<header>
 			<a href="./controlIndex.php"><img src="../images/banniere.png" alt="Banniere Covoit'INSA" id="banniere" /></a>
 			<nav>
 				<div id='cssmenu'>
 					<ul>
-						<?php if ($_SESSION['page'] == "index") {
-							echo ("<li class='active'><a href='./controlIndex.php'><span>Accueil</span></a></li>");
-						}
-						else {
-							echo ("<li class='has-sub'><a href='./controlIndex.php'><span>Accueil</span></a></li>");
-						}?>
-					   
-					   <li class='has-sub'><a href='#'><span>Longs trajets</span></a>
+						<li class='has-sub <?php if ($_SESSION['page'] == "index") echo "active" ; ?>'><a href='./controlIndex.php'><span>Accueil</span></a></li>
+					   	<li class='has-sub'><a href='#'><span>Longs trajets</span></a>
 						  <ul>
 							 <li><a href='#'><span>Vers l'INSA</span></a></li>
 							 <li class='last'><a href='#'><span>Au départ de l'INSA</span></a></li>
 						  </ul>
-					   </li>
-					   <li class='has-sub'><a href='#'><span>Courts trajets</span></a>
+					   	</li>
+					   	<li class='has-sub'><a href='#'><span>Courts trajets</span></a>
 						  <ul>
 							 <li><a href='#'><span>Trajets quotidiens</span></a></li>
 							 <li><a href='#'><span>Courses</span></a></li>
 							 <li class='last'><a href='#'><span>Soirées</span></a></li>
 						  </ul>
-					   </li>
-					   <li class='has-sub last'><a href='#'><span>Loisirs</span></a>
+					   	</li>
+					   	<li class='has-sub last'><a href='#'><span>Loisirs</span></a>
 						  <ul>
 							 <li><a href='#'><span>Ski</span></a></li>
 							 <li><a href='#'><span>Randonnée</span></a></li>
 							 <li><a href='#'><span>Plage</span></a></li>
 							 <li class='last'><a href='#'><span>Andorre</span></a></li>
 						  </ul>
-					   </li>
-					   <!--<div class="identification">-->
-					   <?php
+					   	</li>
+					   	<?php
 						if(isset($_SESSION['user'])){
-						?><li <?php if ($_SESSION['page'] == "profil") {echo "class='active'";} ?>>
+						?>
+						<li <?php if ($_SESSION['page'] == "profil") {echo "class='active'";} ?>>
 							<a href="./controlProfil.php">Mon Profil</a>
 						</li>
 						<li>
@@ -98,23 +98,16 @@ $("#affichage").show();
 						</li>
 							<?php }
 							else { ?>
-						<div id="connexion"><!--<div id="connexion">-->
-						<!--<span id="connexion">-->
-							<form method="post" action="../controleur/controlConnexion.php" id="formconnexion"> 
-								<input type="pseudo" name="pseudo" placeholder="Identifiant"/>
-								<input type="password" name="password" placeholder="Mot de passe" />
-								<input type="submit" id="submit" value="OK" />
-							</form>
-						</div><!--</div>-->
-						<!--</span>-->
+						<li>
+							<a id="connexion"> Connexion</a>
+						</li>
 						<li>					
 								<a id="inscription" >Inscription</a>
 						</li>
-						<!--</div>-->
 						<?php } ?> 
 					</ul>
 				</div>
 			</nav>
 		</header>
-		<div id='inscript'></div>
 		<section>
+		<div id='form-conn-insc'></div>
