@@ -1,9 +1,27 @@
+body {
+  margin: 0; /* pour éviter les marges */
+  background-color: #C4C7CC;
+}
+
 #page {
-	width: auto;
-    height: auto;
-    margin: auto;
-    margin-top:0em;
-    background-color: #C4C7CC;
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+}
+
+header {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 950px;
+  margin-bottom: 10px;
+}
+
+header img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* DEBUT MENU */
@@ -185,7 +203,22 @@
 #cssmenu .has-sub ul li.last > a {
   border-bottom: 0;
 }
-/* FIN MENU */
-#identification {
+
+.connexion {
+  display: inline-block;
+}
+
+.identification {
 	float: right;
+}
+/* FIN MENU */
+
+section {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+footer {
+  text-align: center;
+  padding-bottom: 3px;
 }

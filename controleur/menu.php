@@ -36,8 +36,8 @@ $("#affichage").show();
 				$("#affichage")toggle();},
 			error: function() {
 				alert('The query doesn\'t work'); }
-      });	   
-    });
+	  });	   
+	});
 </script>*/ ?>
 
 <?php //session_unset() ?>
@@ -59,7 +59,13 @@ $("#affichage").show();
 			<nav>
 				<div id='cssmenu'>
 					<ul>
-					   <li class='active'><a href='./controlIndex.php'><span>Accueil</span></a></li>
+						<?php if ($_SESSION['page'] == "index") {
+							echo ("<li class='active'><a href='./controlIndex.php'><span>Accueil</span></a></li>");
+						}
+						else {
+							echo ("<li class='has-sub'><a href='./controlIndex.php'><span>Accueil</span></a></li>");
+						}?>
+					   
 					   <li class='has-sub'><a href='#'><span>Longs trajets</span></a>
 						  <ul>
 							 <li><a href='#'><span>Vers l'INSA</span></a></li>
@@ -81,30 +87,39 @@ $("#affichage").show();
 							 <li class='last'><a href='#'><span>Andorre</span></a></li>
 						  </ul>
 					   </li>
-					   <li>
-					   	<li>
-						<?php
-						if(isset($_SESSION['user'])){?>
+					   <!--<div class="identification">-->
+					   <?php
+						if(isset($_SESSION['user'])){
+							if ($_SESSION['page'] == "profil") {
+								echo ("<li class='active'>");
+							}
+							else {
+								echo ("<li>");
+							}?>
 							<a href="./controlProfil.php">Mon Profil</a>
-					</li>
-					<li>
-							<a href="./controlDeconnexion.php">Deconnexion</a>
-						<?php }
-						else { ?>
-						<div id="connexion">
-						<form method="post" action="../controleur/controlConnexion.php" id="formconnexion"> 
-							<input type="pseudo" name="pseudo" placeholder="Identifiant"/>
-							<input type="password" name="password" placeholder="Mot de passe" />
-							<input type="submit" id="submit" value="OK" />
-						</form>
-						</div>
 						</li>
+						<li>
+								<a href="./controlDeconnexion.php">Deconnexion</a>
+						</li>
+							<?php }
+							else { ?>
+						<div id="connexion"><!--<div id="connexion">-->
+						<!--<span id="connexion">-->
+							<form method="post" action="../controleur/controlConnexion.php" id="formconnexion"> 
+								<input type="pseudo" name="pseudo" placeholder="Identifiant"/>
+								<input type="password" name="password" placeholder="Mot de passe" />
+								<input type="submit" id="submit" value="OK" />
+							</form>
+						</div><!--</div>-->
+						<!--</span>-->
 						<li>					
-							<a id="inscription" >Inscription</a>
+								<a id="inscription" >Inscription</a>
+						</li>
+						<!--</div>-->
 						<?php } ?> 
-					</li>
 					</ul>
 				</div>
 			</nav>
 		</header>
 		<div id='inscript'></div>
+		<section>

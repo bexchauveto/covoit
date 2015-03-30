@@ -1,1 +1,1 @@
-<p>Ceci est le site de covoiturage des étudiant de l'insa de toulouse</p>
+<p>Ceci est le site de covoiturage des étudiants de l'insa de toulouse</p>

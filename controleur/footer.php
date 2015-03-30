@@ -1,6 +1,7 @@
-<div class= "footer">
+</section>
+<footer>
 	<p> &copy; Amicale des Élèves INSA Toulouse</p>
-</div>
+</footer>
 </div>
 </body>
 </html>

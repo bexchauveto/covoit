@@ -1,6 +1,6 @@
 <?php
-
 	include("./header.php");
+	$_SESSION['page'] = "profil";
 	include("./menu.php");
 	include("../modele/user.php");
 	$pseudo = $_SESSION['user'];
