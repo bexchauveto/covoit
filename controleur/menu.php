@@ -46,15 +46,29 @@ $("#affichage").show();
 <body>
 	<script type="text/javascript">
 		$(function() {
-			$('div[id="form-conn-insc"]').hide();
+			$('div[id^="form-"]').hide();
 			$('#inscription').click(function() {
-				$('div[id="form-conn-insc"]').load( "../vue/vueInscription.php");
-				$('div[id="form-conn-insc"]').toggle();
+				var visibilite = $('div[id="form-conn"]').is(':visible');
+				$('div[id="form-insc"]').load( "../vue/vueInscription.php");
+				if(visibilite){
+					$('div[id="form-insc"]').toggle();
+					$('div[id="form-conn"]').hide();
+				}
+				else {
+					$('div[id="form-insc"]').toggle();
+				}
 			});
 
 			$('#connexion').click(function() {
-				$('div[id="form-conn-insc"]').load( "../vue/vueConnexion.php");
-				$('div[id="form-conn-insc"]').toggle();
+				var visibilite = $('div[id="form-insc"]').is(':visible');
+				$('div[id="form-conn"]').load( "../vue/vueConnexion.php");
+				if(visibilite){
+					$('div[id="form-conn"]').toggle();
+					$('div[id="form-insc"]').hide();
+				}
+				else {
+					$('div[id="form-conn"]').toggle();
+				}
 			});
 		});
 	</script>
@@ -110,4 +124,5 @@ $("#affichage").show();
 			</nav>
 		</header>
 		<section>
-		<div id='form-conn-insc'></div>
+		<div id='form-conn'></div>
+		<div id='form-insc'></div>
