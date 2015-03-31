@@ -208,13 +208,10 @@ header img {
   border-bottom: 0;
 }
 
-.connexion {
-  display: inline-block;
+li {
+  cursor: pointer;
 }
 
-.identification {
-	float: right;
-}
 .aligne-droit {
   float: right;
 }

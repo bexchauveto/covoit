@@ -113,10 +113,10 @@ $("#affichage").show();
 							<?php }
 							else { ?>
 						<li>
-							<a id="connexion"> Connexion</a>
+							<a id="connexion">Connexion</a>
 						</li>
 						<li>					
-								<a id="inscription" >Inscription</a>
+							<a id="inscription">Inscription</a>
 						</li>
 						<?php } ?> 
 					</ul>
