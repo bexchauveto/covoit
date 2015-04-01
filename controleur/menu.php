@@ -96,11 +96,14 @@ $("#affichage").show();
 					   	<li class='has-sub last'><a href='#'><span>Loisirs</span></a>
 						  <ul>
 							 <li><a href='#'><span>Ski</span></a></li>
-							 <li><a href='#'><span>Randonnée</span></a></li>
 							 <li><a href='#'><span>Plage</span></a></li>
+							 <li><a href='#'><span>Randonnée</span></a></li>
 							 <li class='last'><a href='#'><span>Andorre</span></a></li>
 						  </ul>
 					   	</li>
+					   	<li>
+					   		<a href='./controleur/controlAjoutAnnonce.php'><span>Ajouter une annonce</span></a>
+				   		</li>
 					   	<?php
 						if(isset($_SESSION['user'])){
 						?>

@@ -26,9 +26,9 @@ class Trajet {
 		$this->idTrajet = null;
 	}
 
-	public function createTrajet($typeTrajet, $villeDepart, $villeArrivee, $prix, $description, $date, $heure, $tabescale, $tabflag, $idUser, $lienGoogle){
+	public function createTrajet($typeTrajet, $villeDepart, $villeArrivee, $prix, $duree, $description, $date, $heure, $tabescale, $tabflag, $idUser, $lienGoogle){
 		global $mysqli;
-		$req = $mysqli->query("INSERT INTO trajet ('typeTrajet', 'villedep','villearr', 'prix', 'description', 'dateTrajet', 'heure') VALUES ('$typeTrajet','$villeDepart', '$villeArrivee', '$prix','$description','$date','$heure')") or die("ERROR");
+		$req = $mysqli->query("INSERT INTO trajet ('typeTrajet', 'villedep','villearr', 'prix', 'duree', 'description', 'dateTrajet', 'heure') VALUES ('$typeTrajet','$villeDepart', '$villeArrivee', '$prix','$duree','$description','$date','$heure')") or die("ERROR");
 		$req = $mysqli->query("SELECT id FROM trajet WHERE typeTrajet='$typeTrajet' AND villeDepart='$villeDepart' AND dateTrajet='$date' AND heure='$heure'") or die ("ERROR");
 		$tupleTrajet = $req->fetche_array();
 		$idTrajet = $tupleTrajet['id'];
@@ -51,10 +51,55 @@ class Trajet {
 		return $req;
 	}
 
-	public function modifyTrajet($idTrajet, $typeTrajet, $villeDepart, $villeArrivee, $prix, $description, $date, $heure, $tabescale, $tabflag, $idUser, $lienGoogle){
+	public function modifyTrajet($idTrajet, $typeTrajet, $villeDepart, $villeArrivee, $prix, $duree, $description, $date, $heure, $tabescale, $tabflag, $lienGoogle){
 		global $mysqli;
 		$req = $mysqli->query("SELECT * FROM trajet WHERE idTrajet='$idTrajet'") or die ("ERROR");
 		$tupleTrajet =  $req->fetche_array();
+		if($tupleTrajet['typeTrajet'] != $typeTrajet){
+			$req = $mysqli->query("UPDATE trajet SET typeTrajet='$typeTrajet' WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		}
+		if($tupleTrajet['typeTrajet'] != $typeTrajet){
+			$req = $mysqli->query("UPDATE trajet SET typeTrajet='$typeTrajet' WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		}
+		if($tupleTrajet['villeDepart'] != $villeDepart){
+			$req = $mysqli->query("UPDATE trajet SET villeDepart='$villeDepart' WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		}
+		if($tupleTrajet['villeArrivee'] != $villeArrivee){
+			$req = $mysqli->query("UPDATE trajet SET villeArrivee='$villeArrivee' WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		}
+		if($tupleTrajet['prix'] != $prix){
+			$req = $mysqli->query("UPDATE trajet SET prix='$prix' WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		}
+		if($tupleTrajet['duree'] != $duree){
+			$req = $mysqli->query("UPDATE trajet SET duree='$duree' WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		}
+		if($tupleTrajet['description'] != $description){
+			$req = $mysqli->query("UPDATE trajet SET description='$description' WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		}
+		if($tupleTrajet['dateTrajet'] != $date){
+			$req = $mysqli->query("UPDATE trajet SET dateTrajet='$date' WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		}
+		if($tupleTrajet['heure'] != $heure){
+			$req = $mysqli->query("UPDATE trajet SET heure='$heure' WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		}
+		$req = $mysqli->query("DELETE FROM trajetEscale WHERE idTrajet='$idTrajet'") or die("ERROR");
+		foreach ($tabescale as $key => $value) {
+			$req = $mysqli->query("SELECT id FROM trajetEscale WHERE ville='$value'") or die ("ERROR");
+			$tuple = $req->fetch_array();
+			if($tuple == null){
+				$req = $mysqli->query("INSERT INTO escale('ville') VALUES('$value')") or die ("ERROR");
+				$req = $mysqli->query("INSERT INTO trajetEscale('idTrajet','idVille','ordre') VALUES ('$idTrajet','$value', '$key')") or die ("ERROR");
+			}
+			else {
+				$req = $mysqli->query("INSERT INTO trajetEscale('idTrajet','idVille','ordre') VALUES ('$idTrajet','$value', '$key')") or die ("ERROR");
+			}
+		}
+		$req = $mysqli->query("DELETE FROM trajetFlags WHERE idTrajet='$idTrajet'") or die("ERROR");
+		foreach ($tabflag as $key => $value) {
+			$req = $mysqli->query("INSERT INTO trajetFlags ('idTrajet','idFlag') VALUES ('$idTrajet','$value')") or die ("ERROR");
+		}
+		$req = $mysqli->query("INSERT INTO trajetGoogle ('idTrajet', 'lienGoogle') VALUES ('$idTrajet','$lienGoogle')") or die ("ERROR");
+		return $req;
 	}
 
 	public function deleteTrajet($idTrajet){
