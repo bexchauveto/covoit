@@ -101,5 +101,16 @@ class User {
 	public static function getPwd() {
 		return $this->password;
 	}
+
+	public static function getAllUser() {
+		global $mysqli;
+		$req = $mysqli->query("SELECT pseudo FROM user") or die ("ERROR");
+		$i = 0;
+		while($tuplePseudo = $req->fetch_array()){
+			$tableauPseudo[$i] = $tuplePseudo['pseudo'];
+			$i++;
+		}
+		return $tableauPseudo;
+	}
 }
 ?>

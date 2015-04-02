@@ -51,14 +51,30 @@ $("#affichage").show();
 				var visibilite = $('div[id="form-conn"]').is(':visible');
 				$('div[id="form-insc"]').load( "../vue/vueInscription.php");
 				if(visibilite){
-					$('div[id="form-insc"]').toggle();
-					$('div[id="form-conn"]').hide();
-				}
-				else {
-					$('div[id="form-insc"]').toggle();
-				}
+							$('div[id="form-insc"]').toggle();
+							$('div[id="form-conn"]').hide();
+						}
+						else {
+							$('div[id="form-insc"]').toggle();
+						}
+				/*$.ajax({
+            		type: 'GET',
+   					url: '../vue/vueInscription.php?tableau='+tableau,
+            		timeout: 3000,
+            		success: function(data) {
+            			$('div[id="form-insc"]').html(data);
+	             		if(visibilite){
+							$('div[id="form-insc"]').toggle();
+							$('div[id="form-conn"]').hide();
+						}
+						else {
+							$('div[id="form-insc"]').toggle();
+						}
+             		},
+            		error: function() {
+          				alert('The query doesn\'t work'); }
+          			}); */
 			});
-
 			$('#connexion').click(function() {
 				var visibilite = $('div[id="form-insc"]').is(':visible');
 				$('div[id="form-conn"]').load( "../vue/vueConnexion.php");
@@ -102,7 +118,7 @@ $("#affichage").show();
 						  </ul>
 					   	</li>
 					   	<li>
-					   		<a href='./controleur/controlAjoutAnnonce.php'><span>Ajouter une annonce</span></a>
+					   		<a href='./controlAjoutAnnonce.php'><span>Ajouter une annonce</span></a>
 				   		</li>
 					   	<?php
 						if(isset($_SESSION['user'])){
@@ -129,3 +145,4 @@ $("#affichage").show();
 		<section>
 		<div id='form-conn'></div>
 		<div id='form-insc'></div>
+		

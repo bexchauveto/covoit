@@ -3,9 +3,11 @@ $(function() {
 	var tableauVilleJS = <?php echo json_encode($tableauVille); ?>;
 	$('#villeDep').autocomplete({
 	    source : tableauVilleJS
+	    minLength : 3
 	});
 	$('#villeArr').autocomplete({
 	    source : tableauVilleJS
+	    minLength : 3
 	});
 	$('#dureeTraj').keyup(function() {
 	    dateTraj = $(this).value;
