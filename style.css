@@ -321,6 +321,8 @@ button, .submit, #submit{
     outline:none;
     border:1px solid #FFF;
     background: #ff0f1b;
+    margin-top: 1.5px;
+    margin-bottom: 1.5px;
 }
 .submitdiv {
   text-align: center;

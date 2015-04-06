@@ -75,12 +75,16 @@
  		echo "</p></td>";
  		echo "<td><p>";
  		echo $trajet->getduree();
- 		echo "</p>";
+ 		echo "</p></td>";
  		echo "<td><form method='get'>";
+ 		echo "<input type=hidden name='idTrajetAGerer' value=".$trajet->getidTrajet().">";
+ 		echo "<button formaction='./controlGestionTrajet.php'>Gérer</button>";
+ 		echo "</form>";
+ 		echo "<form method='get'>";
  		echo "<input type=hidden name='idTrajetASupprimer' value=".$trajet->getidTrajet().">";
  		echo "<button formaction='./controlProfil.php'>Supprimer</button>";
  		echo "</form></td>";
- 		 echo "</tr>";
+ 		echo "</tr>";
 	}
 
 
