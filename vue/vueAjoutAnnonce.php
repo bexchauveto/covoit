@@ -49,7 +49,7 @@ $(function() {
 				<option value="6">Trajet loisir vers le ski</option>
 				<option value="7">Trajet loisir vers la plage</option>
 				<option value="8">Trajet loisir vers la randonnée</option>
-				<option value="9">Trajet loisir vers l'Andorre</option>
+				<option value="9">Trajet loisir vers l'Andorre'</option>
 			</select>
 		</p>
 		<div id="trajet"></div>
