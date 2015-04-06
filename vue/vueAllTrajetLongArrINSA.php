@@ -17,13 +17,15 @@
  		echo "<td><p>";
  		echo ucfirst($trajet['villedep'])." vers ".ucfirst($trajet['villearr'])." en passant par : ";
  		foreach ($tableauEscale as $trajetescale) {
- 			foreach ($trajetescale as $escale) {
-	 			foreach ($ListeEscale as $Ville) {
-	 				if($escale['idVille'] == $Ville['idVille'] && $escale['idTrajet'] == $idTrajet){
-	 					echo ucfirst($Ville['ville']).", ";
-	 				}
+ 			if ($trajetescale != null) {
+	 			foreach ($trajetescale as $escale) {
+		 			foreach ($ListeEscale as $Ville) {
+		 				if($escale['idVille'] == $Ville['idVille'] && $escale['idTrajet'] == $idTrajet){
+		 					echo ucfirst($Ville['ville']).", ";
+		 				}
+		 			}
 	 			}
- 			}
+	 		}
  		}
  		echo "</p>";
  		echo "<p>Le ".$trajet['dateTrajet']." à ".$trajet['heure']." et d'une durée de ".$trajet['duree'].".</p>";

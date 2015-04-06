@@ -35,51 +35,72 @@ class Trajet {
 		$req = $mysqli->query("SELECT idTrajet FROM trajet WHERE typeTrajet='$typeTrajet' AND villedep='$villeDepart' AND dateTrajet='$date' AND heure='$heure'") or die ("ERROR2");
 		$tupleTrajet = $req->fetch_array();
 		$idTrajet = $tupleTrajet['idTrajet'];
-		$req = $mysqli->query("SELECT * FROM escale WHERE ville = '$villeDepart'") or die("ERROR2.5");
-		$tuplevilleDep = $req->fetch_array();
-		if($tuplevilleDep == null){
-			$req = $mysqli->query("INSERT INTO escale (ville) VALUES ('$villeDepart')") or die ("ERROR2.5.2");
-		}
-		$req = $mysqli->query("SELECT * FROM escale WHERE ville = '$villeArrivee'") or die("ERROR2.5.3");
-		$tuplevilleArr = $req->fetch_array();
-		if($tuplevilleArr == null){
-			$req = $mysqli->query("INSERT INTO escale (ville) VALUES ('$villeArrivee')") or die ("ERROR2.5.4");
-		}
+		
 		$req = $mysqli->query("INSERT INTO userTrajetCreator (idUser,idTrajet) VALUES ('$idUser','$idTrajet')") or die ("ERROR3");
+
 		if($typeTrajet == 1 || $typeTrajet == 2 || $typeTrajet == 6 || $typeTrajet == 7 || $typeTrajet == 8 || $typeTrajet == 9){
-			foreach ($tabescale as $key => $value) {
-				$req = $mysqli->query("SELECT idVille FROM escale WHERE ville='$value'") or die ("ERROR4");
-				$tuple = $req->fetch_array();
-				if($tuple == null){
-					$req = $mysqli->query("INSERT INTO escale (ville) VALUES ('$value')") or die ("ERROR5");
-					$req = $mysqli->query("SELECT * FROM escale WHERE ville='$value'") or die("ERROR6");
-					$tupleNewVille = $req->fetch_array();
-					$idVille=$tupleNewVille['idVille'];
-					$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$idVille', '$key')") or die ("ERROR7");
-				}
-				else {
-					$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$value', '$key')") or die ("ERROR8");
+
+			$req = $mysqli->query("SELECT * FROM escale WHERE ville = '$villeDepart'") or die("ERROR2.5");
+			$tuplevilleDep = $req->fetch_array();
+			if($tuplevilleDep == null){
+				$req = $mysqli->query("INSERT INTO escale (ville) VALUES ('$villeDepart')") or die ("ERROR2.5.2");
+			}
+			$req = $mysqli->query("SELECT * FROM escale WHERE ville = '$villeArrivee'") or die("ERROR2.5.3");
+			$tuplevilleArr = $req->fetch_array();
+			if($tuplevilleArr == null){
+				$req = $mysqli->query("INSERT INTO escale (ville) VALUES ('$villeArrivee')") or die ("ERROR2.5.4");
+			}
+
+			if ($tabescale != null) {
+				foreach ($tabescale as $key => $value) {
+					$req = $mysqli->query("SELECT idVille FROM escale WHERE ville='$value'") or die ("ERROR4");
+					$tuple = $req->fetch_array();
+					if($tuple == null){
+						$req = $mysqli->query("INSERT INTO escale (ville) VALUES ('$value')") or die ("ERROR5");
+						$req = $mysqli->query("SELECT * FROM escale WHERE ville='$value'") or die("ERROR6");
+						$tupleNewVille = $req->fetch_array();
+						$idVille=$tupleNewVille['idVille'];
+						$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$idVille', '$key')") or die ("ERROR7");
+					}
+					else {
+						$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$value', '$key')") or die ("ERROR8");
+					}
 				}
 			}
 		}
 		else {
-			foreach ($tabescale as $key => $value) {
-				$req = $mysqli->query("SELECT idTrajet FROM trajetLieu WHERE lieu='$value'") or die ("ERROR9");
-				$tuple = $req->fetch_array();
-				if($tuple == null){
-					$req = $mysqli->query("INSERT INTO lieu (lieu) VALUES ('$value')") or die ("ERROR10");
-					$req = $mysqli->query("SELECT * FROM lieu WHERE lieu='$value'") or die("ERROR11");
-					$tupleNewLieu = $req->fetch_array();
-					$idLieu=$tupleNewLieu['idLieu'];
-					$req = $mysqli->query("INSERT INTO trajetLieu(idTrajet,idLieu,ordre) VALUES ('$idTrajet','$idLieu', '$key')") or die ("ERROR12");
-				}
-				else {
-					$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idLieu,ordre) VALUES ('$idTrajet','$value', '$key')") or die ("ERROR13");
+
+			$req = $mysqli->query("SELECT * FROM lieu WHERE lieu = '$villeDepart'") or die("ERROR2.5");
+			$tuplelieuDep = $req->fetch_array();
+			if($tuplelieuDep == null){
+				$req = $mysqli->query("INSERT INTO lieu (lieu) VALUES ('$villeDepart')") or die ("ERROR2.5.2");
+			}
+			$req = $mysqli->query("SELECT * FROM lieu WHERE lieu = '$villeArrivee'") or die("ERROR2.5.3");
+			$tuplelieuArr = $req->fetch_array();
+			if($tuplelieuArr == null){
+				$req = $mysqli->query("INSERT INTO lieu (lieu) VALUES ('$villeArrivee')") or die ("ERROR2.5.4");
+			}
+			if ($tabescale != null) {
+				foreach ($tabescale as $key => $value) {
+					$req = $mysqli->query("SELECT idLieu FROM lieu WHERE lieu='$value'") or die ("ERROR9");
+					$tuple = $req->fetch_array();
+					if($tuple == null){
+						$req = $mysqli->query("INSERT INTO lieu (lieu) VALUES ('$value')") or die ("ERROR10");
+						$req = $mysqli->query("SELECT * FROM lieu WHERE lieu='$value'") or die("ERROR11");
+						$tupleNewLieu = $req->fetch_array();
+						$idLieu=$tupleNewLieu['idLieu'];
+						$req = $mysqli->query("INSERT INTO trajetLieu(idTrajet,idLieu,ordre) VALUES ('$idTrajet','$idLieu', '$key')") or die ("ERROR12");
+					}
+					else {
+						$req = $mysqli->query("INSERT INTO trajetLieu(idTrajet,idLieu,ordre) VALUES ('$idTrajet','$value', '$key')") or die ("ERROR13");
+					}
 				}
 			}
 		}
-		foreach ($tabflag as $key => $value) {
-			$req = $mysqli->query("INSERT INTO trajetFlag (idTrajet,idFlag) VALUES ('$idTrajet','$value')") or die ("ERROR14");
+		if ($tabflag != null) {
+			foreach ($tabflag as $key => $value) {
+				$req = $mysqli->query("INSERT INTO trajetFlag (idTrajet,idFlag) VALUES ('$idTrajet','$value')") or die ("ERROR14");
+			}
 		}
 		$req = $mysqli->query("INSERT INTO usertrajetGoogle (idTrajet, lienGoogle) VALUES ('$idTrajet','$lienGoogle')") or die ("ERROR15");
 		return $req;
@@ -132,8 +153,10 @@ class Trajet {
 			}
 		}
 		$req = $mysqli->query("DELETE FROM trajetFlag WHERE idTrajet='$idTrajet'") or die("ERROR");
-		foreach ($tabflag as $key => $value) {
-			$req = $mysqli->query("INSERT INTO trajetFlag (idTrajet,idFlag) VALUES ('$idTrajet','$value')") or die ("ERROR");
+		if ($tabflag != null) {
+			foreach ($tabflag as $key => $value) {
+				$req = $mysqli->query("INSERT INTO trajetFlag (idTrajet,idFlag) VALUES ('$idTrajet','$value')") or die ("ERROR");
+			}
 		}
 		$req = $mysqli->query("INSERT INTO usertrajetGoogle (idTrajet, lienGoogle) VALUES ('$idTrajet','$lienGoogle')") or die ("ERROR");
 		return $req;

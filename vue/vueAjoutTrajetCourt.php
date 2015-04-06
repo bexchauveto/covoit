@@ -1,6 +1,6 @@
 <script type="text/javascript">
 $(function() {
-	$('#LieuDep').autocomplete({
+	$('#lieuDep').autocomplete({
 	    source : function() {
 	    	$.ajax({
 		       url: "../modele/listeLieu.php",
@@ -16,7 +16,7 @@ $(function() {
 	    },
 	    minLength : 3
 	});
-	$('#LieuArr').autocomplete({
+	$('#lieuArr').autocomplete({
 	    source : function() {
 	    	$.ajax({
 		        url: "../modele/listeLieu.php",
@@ -65,7 +65,7 @@ $(function() {
 	            url: '../vue/vueAjoutLieu.php?nb='+nbLieuJS,
 	            timeout: 3000,
 	            success: function(data) {
-	              $('#LieuArret').html('Nombre de lieu intermédiaire : '.nbLieuJS);
+	              $('#lieuArret').html('Nombre de lieu intermédiaire : '.nbLieuJS);
 	              $('#lieu').html(data);
 	              $('#nbLieu').val(nbLieuJS); },
 	            error: function() {
@@ -73,7 +73,7 @@ $(function() {
          	});
 		}
 		else {
-			$('#LieuArret').html('Nombre de lieu intermédiaire maximum (8) atteint');
+			$('#lieuArret').html('Nombre de lieu intermédiaire maximum (8) atteint');
 			nbLieuJS = 8;
 		}
 	});
@@ -86,7 +86,7 @@ $(function() {
 	            url: '../vue/vueAjoutLieu.php?nb='+nbLieuJS,
 	            timeout: 3000,
 	            success: function(data) {
-            	  $('#LieuArret').html('Nombre de lieu intermédiaire : '.nbLieuJS);
+            	  $('#lieuArret').html('Nombre de lieu intermédiaire : '.nbLieuJS);
 	              $('#lieu').html(data);
 	              $('#nbLieu').val(nbLieuJS); },
 	            error: function() {
@@ -94,7 +94,7 @@ $(function() {
          	});
 		}
 		else {
-			$('#LieuArret').html('Nombre de lieu intermédiaire minimum (0) atteint');
+			$('#lieuArret').html('Nombre de lieu intermédiaire minimum (0) atteint');
 			nbLieuJS = 0;
 		}
 	});
@@ -109,10 +109,10 @@ $(function() {
 });
 </script>
 		<p><label>Lieu départ</label> :
-			<input type="text" name="LieuDep" id="LieuDep" required>
+			<input type="text" name="lieuDep" id="lieuDep" required>
 		</p>
 		<p><label>Lieu arrivée</label> :
-			<input type="text" name="LieuArr" id="LieuArr" required>
+			<input type="text" name="lieuArr" id="lieuArr" required>
 		</p>
 		<p><label>Nombre de personnes acceptés </label> :
 			<input type="text" name="nbpersonnes" id="nbpersonnes" required>
@@ -133,7 +133,7 @@ $(function() {
 			<input type="hidden" id="nbLieu" name="nbLieu">
 			<p><button type="button" id="plusLieu"><span>+</span></button>
 			<button type="button" id="moinsLieu"><span>-</span></button></p>
-			<div id="LieuArret"></div>
+			<div id="lieuArret"></div>
 			<div id="lieu"></div>
 		</p>
 		<p><label>Autres informations</label> :</p>
