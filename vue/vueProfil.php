@@ -7,21 +7,6 @@
 
 <fieldset>
 <legend>Mes trajets </legend>
-<?php $mesTrajets = Trajet::getTrajetsByUser($user->getID());
-/*foreach ($mesTrajets as $trajet){
-	
-    echo ("<p>".$trajet->getidTrajet().
-    "Départ : ".$trajet->gettypeTrajet().
-	"Arrivée : "$trajet->getvilleDepart().
-	$trajet->getvilleArrivee().
-	$trajet->getprix().
-	$trajet->getdescription().
-	$trajet->getdate().
-	$trajet->getheure().
-	$trajet->getduree()."</p>");
-}*/ ?>
-
-
 <table  border='1'>
 	<thead>
 		<tr>
@@ -38,10 +23,39 @@
 	<tbody>
 
 <?php
+	$mesTrajets = Trajet::getTrajetsByUser($user->getID());
 	foreach ($mesTrajets as $trajet) {
 	 	echo "<tr>";
  		echo "<td><p>";
- 		echo $trajet->gettypeTrajet();
+ 		switch ($trajet->gettypeTrajet()) {
+		    case 1:
+		        echo "Long Trajet vers l'INSA";
+		        break;
+		    case 2:
+		        echo "Long Trajet au départ de l'INSA";
+		        break;
+		    case 3:
+		        echo "Court trajet quotidiens";
+		        break;
+		    case 4:
+		        echo "Court trajet pour les courses";
+		        break;
+		    case 5:
+		        echo "Court trajet pour les soirées";
+		        break;
+		    case 6:
+		        echo "Trajet loisir vers le ski";
+		        break;
+		    case 7:
+		        echo "Trajet loisir vers la plage";
+		        break;
+		    case 8:
+		        echo "Trajet loisir vers la randonnée";
+		        break;
+		    case 9:
+		        echo "Trajet loisir vers l'Andorre";
+		        break;
+		}
  		echo "</p></td>";
  		echo "<td><p>";
  		echo ucfirst($trajet->getvilleDepart());
