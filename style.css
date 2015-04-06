@@ -323,4 +323,13 @@ button, .submit, #submit{
     background: #ff0f1b;
 }
 
+button:hover, .submit:hover, #submit:hover{
+    padding:8px;
+    color:#FFF;
+    font-size:1em;
+    outline:none;
+    border:1px solid #FFF;
+    background: #a80008;/*#A60F0F;*/
+    
+}
 
