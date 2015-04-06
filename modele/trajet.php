@@ -150,17 +150,17 @@ class Trajet {
 		return $req;
 	}
 
-	public static function sucribeTrajet($idTrajet, $pseudo) {
+	public static function subscribeTrajet($idTrajet, $idUser) {
 		global $mysqli;
 		$boolfalse = 0;
-		$req = $mysqli->query("INSERT INTO userTrajetPassager (idTrajet,pseudo,accepted) VALUES ('$idTrajet','$pseudo','$boolfalse')") or die("ERROR");
+		$req = $mysqli->query("INSERT INTO userTrajetPassager (idTrajet,idUser,accepted) VALUES ('$idTrajet','$idUser','$boolfalse')") or die("ERROR");
 		return $req;
 	}
 
-	public static function accepteSub($idTrajet, $pseudo) {
+	public static function accepteSub($idTrajet, $idUser) {
 		global $mysqli;
 		$booltrue = 1;
-		$req = $mysqli->query("UPDATE userTrajetPassager SET accepted='$booltrue' WHERE idTrajet='$idTrajet' AND pseudo='$pseudo'") or die("ERROR");
+		$req = $mysqli->query("UPDATE userTrajetPassager SET accepted='$booltrue' WHERE idTrajet='$idTrajet' AND idUser='$idUser'") or die("ERROR");
 		return $req;
 	}
 
@@ -357,6 +357,22 @@ class Trajet {
 			return $listeFlag;
 		}
 
+	}
+
+	public static function getAllFlags(){
+		global $mysqli;
+		$req = $mysqli->query("SELECT * FROM flags") or die("ERROR");
+		$i = 0;
+		while($tuple = $req->fetch_array()){
+			$listeFlag[$i] = $tuple;
+			$i++;
+		}
+		if($i == 0){
+			return $i;
+		}
+		else {
+			return $listeFlag;
+		}
 	}
 
 }

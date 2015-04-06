@@ -60,7 +60,7 @@ $(function() {
 
 <form method="post" action="../controleur/controlInscription.php">
 	<fieldset> 
-		<p><label>Identifiant</label> :
+		<div class="submitdiv"><p><label>Identifiant</label> :
 		<input type="text" name="pseudo" id="pseudo" required/>
 		<div id="validePseudo" ></div>
 		</p>
@@ -71,6 +71,6 @@ $(function() {
 		<div id="resultmdp"></div>
 		<p><label>Email</label> :
 		<input type="email" name="email" id="email" required/></p>
-		</p><input type="submit" id="submit" value="S'inscrire" /></p>
+		</p><input type="submit" id="submit" value="S'inscrire" /></p></div>
 	</fieldset>
 </form>

@@ -79,11 +79,11 @@ class User {
 		return $tuple;
 	}
 
-	public static function getUserByNick($nickname){
+	public static function getIdUserByNick($nickname){
 		global $mysqli;
-		$req = $mysqli->query("SELECT * FROM user WHERE pseudo ='$nickname'") or die ("ERROR");
+		$req = $mysqli->query("SELECT id FROM user WHERE pseudo ='$nickname'") or die ("ERROR");
 		$tuple = $req->fetch_array();
-		return new User ($tuple['id'], $tuple['password'], $nickname, $tuple['mail']);
+		return $tuple['id'];
 	}
 
 	public static function getNick() {

@@ -179,12 +179,12 @@ $(function() {
 		</p>
 		<p><label>Autres informations</label> :</p>
 		<p>
-			<input type="checkbox" name="flag[]" value="1">Non fumeur
+			<input type="checkbox" name="flag[]" value="1"><img class="flag" src="../images/non-fumeur.png">Non fumeur
 		</p>
-		<p><input type="checkbox" name="flag[]" value="2">Bagages volumineux
+		<p> <input type="checkbox" name="flag[]" value="2"><img class="flag" src="../images/bagages.png">Bagages volumineux
 		</p>
 
 
-		<input type="submit" name="submit" class="submit" value="Ajouter l'annonce">
+		<div class="submitdiv"><input type="submit" name="submit" class="submit" value="Ajouter l'annonce"></div>
 	</fieldset>
 </form>

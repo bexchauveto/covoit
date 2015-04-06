@@ -8,7 +8,7 @@ $(function() {
 		        url: '../vue/vueAjoutTrajetLong.php',
 		        timeout: 3000,
 		        success: function(data) {
-		        	$('#trajet').html(data);
+		        	$('#trajetChoix').html(data);
 		        },
 		        error: function() {
 		          console.log('The query doesn\'t work'); }
@@ -20,14 +20,14 @@ $(function() {
 			        url: '../vue/vueAjoutTrajetCourt.php',
 			        timeout: 3000,
 			        success: function(data) {
-			        	$('#trajet').html(data);
+			        	$('#trajetChoix').html(data);
 			        },
 			        error: function() {
 			          console.log('The query doesn\'t work'); }
 			  	});
 			}
 			else {
-				$('$trajet').html("Veuillez choisir un type de trajet.");
+				$('#trajetChoix').html("Veuillez choisir un type de trajet.");
 			}
 			
 		}
@@ -52,5 +52,5 @@ $(function() {
 				<option value="9">Trajet loisir vers l'Andorre</option>
 			</select>
 		</p>
-		<div id="trajet"></div>
+		<div id="trajetChoix"></div>
 		

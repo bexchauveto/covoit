@@ -9,9 +9,18 @@
 		$idUserCreator = Trajet::getCreatorByIdTrajet($idTrajet);
 		$userCreator = User::getUserById($idUserCreator);
 		$idUserPassager = Trajet::getPassagerByIdTrajet($idTrajet);
-		foreach ($idUserPassager as $key => $value) {
-			$listeUserPassager[$key] = User::getUserById($value);
+		$nbpassager = 0;
+		if($idUserPassager != 0) {
+			foreach ($idUserPassager as $key => $value) {
+				$listeUserPassager[$key] = User::getUserById($value);
+				$nbpassager++;
+			}
 		}
+		$tableauEscale = Trajet::getAllEscaleByTrajet($idTrajet);
+		$ListeEscale = Trajet::getAllEscale();
+		$listeFlag = Trajet::getFlagsByIdTrajet($idTrajet);
+		$listeAllFlag = Trajet::getAllFlags();
+		$thisUser = User::getIdUserByNick($_SESSION['user']);
 		include("../vue/vueTrajetLong.php");
 	}
 	else {

@@ -40,6 +40,6 @@ else {
 		<p><label>Vérification nouveau mot de passe</label> :
 		<input type="password" id="newpasscheck" required onkeyup="verifmdp();">
 		<div id="newpassgood"></div></p>
-		<input type="submit" value="modifier">
+		<div class="submitdiv"><input type="submit" value="modifier"></div>
 	</fieldset>
 </form>

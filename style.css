@@ -322,7 +322,9 @@ button, .submit, #submit{
     border:1px solid #FFF;
     background: #ff0f1b;
 }
-
+.submitdiv {
+  text-align: center;
+}
 button:hover, .submit:hover, #submit:hover{
     padding:8px;
     color:#FFF;
@@ -332,3 +334,17 @@ button:hover, .submit:hover, #submit:hover{
     background: #a80008;/*#A60F0F;*/
 }
 
+#villes {
+  font-size: 150%;
+  text-align: center;
+}
+
+
+.fleche {
+  vertical-align: middle;
+}
+
+.flag{
+  vertical-align:middle;
+  max-width: 5%;
+}
