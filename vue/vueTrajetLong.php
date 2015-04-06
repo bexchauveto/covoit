@@ -17,14 +17,14 @@
 	echo "</div>";
 
 	echo "<p> Départ le ".$trajet['dateTrajet']." à ".$trajet['heure'].", ce trajet devrait durer ".$trajet['duree']." environ.</p>";
-	echo "<p> Description du trajet : </p><p>".$trajet['description']."</p>";
-	echo "<p>Information supplementaires sur le trajet :<p>";
-	echo "<p>Prix : ".$trajet['prix']/$trajet['nbpers']."€ par personne.</p>";
-	echo "<p> Conducteur du véhicule : ".$userCreator['pseudo']."</p>";
+	echo "<p class='important'> Description du trajet : </p><p>".$trajet['description']."</p>";
+	echo "<p class='important'>Information supplementaires sur le trajet :<p>";
+	echo "<p><span class='important'>Prix :</span> ".$trajet['prix']/$trajet['nbpers']."€ par personne.</p>";
+	echo "<p> <span class='important'>Conducteur du véhicule :</span> ".$userCreator['pseudo']."</p>";
 	foreach ($listeFlag as $flag) {
 		foreach ($listeAllFlag as $flags) {
 			if($flag == $flags['idFlag']) {
-				echo "<p><img class='flag' src='".$flags['lienImage']."'> ".$flags['titre']."</p>";
+				echo "<p><img width='50' height='50'class='flag' src='".$flags['lienImage']."'> ".$flags['titre']."</p>";
 			}
 		}
 	}
