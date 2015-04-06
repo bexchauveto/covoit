@@ -7,5 +7,4 @@
 
 <fieldset>
 <legend>Mes trajets </legend>
-<p>lol</p>
 </fieldset>

@@ -1,0 +1,1 @@
+<p> Annonce postée !</p>

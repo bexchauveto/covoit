@@ -40,7 +40,6 @@ $("#affichage").show();
 	});
 </script>*/ ?>
 
-<?php //session_unset() ?>
 
 </head>
 <body>
@@ -51,29 +50,12 @@ $("#affichage").show();
 				var visibilite = $('div[id="form-conn"]').is(':visible');
 				$('div[id="form-insc"]').load( "../vue/vueInscription.php");
 				if(visibilite){
-							$('div[id="form-insc"]').toggle();
-							$('div[id="form-conn"]').hide();
-						}
-						else {
-							$('div[id="form-insc"]').toggle();
-						}
-				/*$.ajax({
-            		type: 'GET',
-   					url: '../vue/vueInscription.php?tableau='+tableau,
-            		timeout: 3000,
-            		success: function(data) {
-            			$('div[id="form-insc"]').html(data);
-	             		if(visibilite){
-							$('div[id="form-insc"]').toggle();
-							$('div[id="form-conn"]').hide();
-						}
-						else {
-							$('div[id="form-insc"]').toggle();
-						}
-             		},
-            		error: function() {
-          				alert('The query doesn\'t work'); }
-          			}); */
+					$('div[id="form-insc"]').toggle();
+					$('div[id="form-conn"]').hide();
+				}
+				else {
+					$('div[id="form-insc"]').toggle();
+				}
 			});
 			$('#connexion').click(function() {
 				var visibilite = $('div[id="form-insc"]').is(':visible');
@@ -96,24 +78,24 @@ $("#affichage").show();
 				<div id='cssmenu'>
 					<ul>
 						<li class='has-sub <?php if ($_SESSION['page'] == "index") echo "active" ; ?>'><a href='./controlIndex.php'><span>Accueil</span></a></li>
-					   	<li class='has-sub'><a href='#'><span>Longs trajets</span></a>
+					   	<li class='has-sub'><a href'#'=><span>Longs trajets</span></a>
 						  <ul>
-							 <li><a href='#'><span>Vers l'INSA</span></a></li>
+							 <li><a href='./controlTrajetLongdepINSA.php'><span>Vers l'INSA</span></a></li>
 							 <li class='last'><a href='#'><span>Au départ de l'INSA</span></a></li>
 						  </ul>
 					   	</li>
 					   	<li class='has-sub'><a href='#'><span>Courts trajets</span></a>
 						  <ul>
-							 <li><a href='#'><span>Trajets quotidiens</span></a></li>
-							 <li><a href='#'><span>Courses</span></a></li>
+							 <li><a href='./controlContruction.php'><span>Trajets quotidiens</span></a></li>
+							 <li><a href='./controlContruction.php'><span>Courses</span></a></li>
 							 <li class='last'><a href='#'><span>Soirées</span></a></li>
 						  </ul>
 					   	</li>
 					   	<li class='has-sub last'><a href='#'><span>Loisirs</span></a>
 						  <ul>
-							 <li><a href='#'><span>Ski</span></a></li>
-							 <li><a href='#'><span>Plage</span></a></li>
-							 <li><a href='#'><span>Randonnée</span></a></li>
+							 <li><a href='./controlContruction.php'><span>Ski</span></a></li>
+							 <li><a href='./controlContruction.php'><span>Plage</span></a></li>
+							 <li><a href='./controlContruction.php'><span>Randonnée</span></a></li>
 							 <li class='last'><a href='#'><span>Andorre</span></a></li>
 						  </ul>
 					   	</li>

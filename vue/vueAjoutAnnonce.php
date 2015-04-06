@@ -1,43 +1,37 @@
 <script type="text/javascript">
 $(function() {
-	var tableauVilleJS = <?php echo json_encode($tableauVille); ?>;
-	$('#villeDep').autocomplete({
-	    source : tableauVilleJS
-	    minLength : 3
-	});
-	$('#villeArr').autocomplete({
-	    source : tableauVilleJS
-	    minLength : 3
-	});
-	$('#dureeTraj').keyup(function() {
-	    dateTraj = $(this).value;
-	    regexp = new RegExp("[012][0-9][h][0-5][0-9]");
-	    if(regexp.test(dateTraj)){
-			$("#valideHeure").html("Heure valide !");
-	    }
-	    else {
-	    	$("#valideHeure").html("Heure non valide !");
-	    }
-	});
-	$('#dateTraj').keyup(function() {
-	    dateTraj = $(this).value;
-	    regexp = new RegExp("[0123][0-9][/][01][0-9][/][2][0][12][0-9]");
-	    if(regexp.test(dateTraj)){
-			$("#valideDate").html("Date valide !");
-	    }
-	    else {
-	    	$("#valideDate").html("Date non valide !");
-	    }
-	});
-	$('#heureTraj').keyup(function() {
-	    heureTraj = $(this).value;
-	    regexp = new RegExp("[012][0-9][:][0-5][0-9]");
-	    if(regexp.test(heureTraj)){
-	    	$("#valideHeure").html("Heure valide !");
-	    }
-	    else {
-	    	$("#valideHeure").html("Heure non valide !");
-	    }
+	$('#typeTrajet').change(function(){
+		var type = $('#typeTrajet').val();
+		if(type == 1 || type == 2 || type == 6 || type == 7 || type == 8 || type ==9){
+			$.ajax({
+		        type: 'GET',
+		        url: '../vue/vueAjoutTrajetLong.php',
+		        timeout: 3000,
+		        success: function(data) {
+		        	$('#trajet').html(data);
+		        },
+		        error: function() {
+		          console.log('The query doesn\'t work'); }
+		  	});
+		}
+		else { if(type != 0) {
+				$.ajax({
+			        type: 'GET',
+			        url: '../vue/vueAjoutTrajetCourt.php',
+			        timeout: 3000,
+			        success: function(data) {
+			        	$('#trajet').html(data);
+			        },
+			        error: function() {
+			          console.log('The query doesn\'t work'); }
+			  	});
+			}
+			else {
+				$('$trajet').html("Veuillez choisir un type de trajet.");
+			}
+			
+		}
+
 	});
 });
 </script>
@@ -45,8 +39,9 @@ $(function() {
 	<fieldset>
 		<input type="hidden" name="idUser" value="<?php echo $tuple['id']; ?>">
 		<p><label>Type de trajet</label> :
-			<select name="typetrajet">
-				<option value="1" selected>Long Trajet vers l'INSA</option>
+			<select name="typetrajet" id="typeTrajet">
+				<option value="0"> </option>
+				<option value="1">Long Trajet vers l'INSA</option>
 				<option value="2">Long Trajet au départ de l'INSA</option>
 				<option value="3">Court trajet quotidiens</option>
 				<option value="4">Court trajet pour les courses</option>
@@ -57,32 +52,5 @@ $(function() {
 				<option value="9">Trajet loisir vers l'Andorre'</option>
 			</select>
 		</p>
-		<p><label>Ville départ</label> :
-			<input type="text" name="villeDep" id="villeDep" required>
-		</p>
-		<p><label>Ville arrivée</label> :
-			<input type="text" name="villeArr" id="villeArr" required>
-		</p>
-		<p><label>Prix</label> :
-			<input type="text" name="prix" required>
-		</p>
-		<p><label>Durée</label> :
-			<input type="text" name="duree" placeholder="2h30" id="dureeTraj" required>
-			<div id="valideDuree"></div>
-		</p>
-		<p><label>Description</label> :
-			<textarea rows="10" cols="100" name="description"></textarea>
-		</p>
-		<p><label>Date</label> :
-			<input type="text" name="date" placeholder="JJ/MM/AAAA" id="dateTraj" required>
-			<div id="valideDate"></div>
-		</p>
-		<p><label>Heure</label> :
-			<input type="text" name="heure" placeholder="HH:MM" id="heureTraj" required>
-			<div id="valideHeure"></div>
-		</P>
-
-
-
-	</fieldset>
-</form>
+		<div id="trajet"></div>
+		
