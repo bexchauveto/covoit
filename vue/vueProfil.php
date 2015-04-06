@@ -44,10 +44,10 @@
  		echo $trajet->gettypeTrajet();
  		echo "</p></td>";
  		echo "<td><p>";
- 		echo $trajet->getvilleDepart();
+ 		echo ucfirst($trajet->getvilleDepart());
  		echo "</p></td>";
  		echo "<td><p>";
- 		echo $trajet->getvilleArrivee();
+ 		echo ucfirst($trajet->getvilleArrivee());
  		echo "</p></td>";
  		echo "<td><p>";
  		echo $trajet->getprix();
@@ -63,8 +63,8 @@
  		echo $trajet->getduree();
  		echo "</p>";
  		echo "<td><form method='get'>";
- 		echo "<input type=hidden name='idTrajet' value=".$trajet->getidTrajet().">";
- 		echo "<button formaction='./controlTrajetLong.php'> Supprimer</button>";
+ 		echo "<input type=hidden name='idTrajetASupprimer' value=".$trajet->getidTrajet().">";
+ 		echo "<button formaction='./controlProfil.php'>Supprimer</button>";
  		echo "</form></td>";
  		 echo "</tr>";
 	}

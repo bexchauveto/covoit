@@ -19,6 +19,6 @@
 	else {
 		include("../vue/vueInscriptKO.php");
 	}
-	header("refresh: 0.5;url=./controlIndex.php");
+	header("refresh: 3;url=./controlIndex.php");
 	include("./footer.php");
 ?>

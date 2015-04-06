@@ -5,7 +5,7 @@ $(function() {
 	pseudoOK = false;
 	$('#pseudo').keyup(function() {
 	    var pseudoVal = $('#pseudo').val();
-	    if($('#pseudo').val().length > 3) {
+	    if(pseudoVal.length > 3) {
 		    $.ajax({
 	            type: 'GET',
 	            url: '../modele/listeUtil.php',
@@ -27,8 +27,9 @@ $(function() {
 		    			$('input[type="submit"]').attr('disabled','disabled');
 		    			pseudoOK = false;
 		  		 }	},
-	            error: function() {
-	              alert('The query doesn\'t work'); }
+	            /*error: function() {
+	              alert('The query doesn\'t work'); //Affiche la popup en boucle quand on veut s'inscrire avec un pseudo qui n'existe pas encore
+	          	}*/
 	      	});
       	}
       	else {

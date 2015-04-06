@@ -32,6 +32,10 @@ class Trajet {
 		return $this->idTrajet;
 	}
 
+	public function setidTrajet($id) {
+		$this->idTrajet = $id;
+	}
+
 	public function gettypeTrajet() {
 		return $this->typeTrajet;
 	}
@@ -203,8 +207,8 @@ class Trajet {
 		$req = $mysqli->query("DELETE FROM trajet WHERE idTrajet='$idTrajet'") or die ("ERROR");
 		$req = $mysqli->query("DELETE FROM userTrajetCreator WHERE idTrajet='$idTrajet'") or die ("ERROR");
 		$req = $mysqli->query("DELETE FROM trajetEscale WHERE idTrajet='$idTrajet'") or die ("ERROR");
-		$req = $mysqli->query("DELETE FROM trajetFlags WHERE idTrajet='$idTrajet'") or die ("ERROR");
-		$req = $mysqli->query("DELETE FROM trajetGoogle WHERE idTrajet='$idTrajet'") or die ("ERROR");
+		$req = $mysqli->query("DELETE FROM trajetFlag WHERE idTrajet='$idTrajet'") or die ("ERROR");
+		$req = $mysqli->query("DELETE FROM userTrajetGoogle WHERE idTrajet='$idTrajet'") or die ("ERROR");
 		$req = $mysqli->query("DELETE FROM userTrajetPassager WHERE idTrajet='$idTrajet'") or die("ERROR");
 		return $req;
 	}
@@ -322,7 +326,8 @@ class Trajet {
 		$i=0;
 		$listeTrajets = [];
 		while ($tuple = $req->fetch_array()) {
-			$listeTrajets[$i] = new Trajet($tuple['idTrajet'], $tuple['villedep'], $tuple['villearr'], $tuple['prix'], $tuple['description'], $tuple['dateTrajet'], $tuple['heure'], $tuple['duree']);
+			$listeTrajets[$i] = new Trajet($tuple['typeTrajet'], $tuple['villedep'], $tuple['villearr'], $tuple['prix'], $tuple['description'], $tuple['dateTrajet'], $tuple['heure'], $tuple['duree']);
+			$listeTrajets[$i]->setidTrajet($tuple['idTrajet']);
 			$i++;
 		}
 		return $listeTrajets;
@@ -332,6 +337,7 @@ class Trajet {
 		global $mysqli;
 		$req = $mysqli->query("SELECT * FROM trajet WHERE typeTrajet = '$typeTrajet' ORDER BY dateTrajet ASC") or die ("ERROR");
 		$i = 0;
+		$listeTrajet = [];
 		while($tuple = $req->fetch_array()){
 			$listeTrajet[$i]=$tuple;
 			$i++;

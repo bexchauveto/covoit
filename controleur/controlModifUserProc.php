@@ -22,7 +22,7 @@
 	else {
 		include("../vue/vueModifUserFail.php");
 	}
-	header("refresh: 0.5;url=./controlProfil.php");
+	header("refresh: 3;url=./controlProfil.php");
 	include("./footer.php");
 
 ?>

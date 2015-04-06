@@ -7,8 +7,8 @@
 		$idUser = htmlspecialchars($_POST['idUser']);
 		$typeTrajet = htmlspecialchars($_POST['typetrajet']);
 		if($typeTrajet == 1 || $typeTrajet == 2 || $typeTrajet == 6 || $typeTrajet == 7 || $typeTrajet == 8 || $typeTrajet ==9){
-			$villeDep = strtolower(addslashes(htmlspecialchars($_POST["villeDep"])));
-			$villeArr = strtolower(addslashes(htmlspecialchars($_POST["villeArr"])));
+			$villeDep = mb_strtolower(addslashes(htmlspecialchars($_POST["villeDep"])));
+			$villeArr = mb_strtolower(addslashes(htmlspecialchars($_POST["villeArr"])));
 			$prix = htmlspecialchars($_POST['prix']);
 			$nbpers = htmlspecialchars($_POST['nbpersonnes']);
 			$duree = htmlspecialchars($_POST['duree']);
@@ -20,7 +20,7 @@
 				$i = 1;
 				while ($i < $nbEscale+1){
 					$str = "arret".$i;
-					$escaletab[$i] = strtolower(addslashes(htmlspecialchars($_POST[$str])));
+					$escaletab[$i] = mb_strtolower(addslashes(htmlspecialchars($_POST[$str])));
 					$i++;
 				}
 			}
@@ -37,10 +37,10 @@
 			$createAnnonce = Trajet::createTrajet($typeTrajet, $villeDep, $villeArr, $prix, $nbpers, $duree, $description, $date, $heure, $escaletab, $flag, $idUser, $lienGoogle);
 		}
 		else {
-			$lieuDep = strtolower(addslashes(htmlspecialchars($_POST["lieuDep"])));
-			$lieuArr = strtolower(addslashes(htmlspecialchars($_POST["lieuArr"])));
+			$lieuDep = mb_strtolower(addslashes(htmlspecialchars($_POST["lieuDep"])));
+			$lieuArr = mb_strtolower(addslashes(htmlspecialchars($_POST["lieuArr"])));
 			$nbpers = htmlspecialchars($_POST['nbpersonnes']);
-			$description = strtolower(addslashes(htmlspecialchars($_POST['description'])));
+			$description = mb_strtolower(addslashes(htmlspecialchars($_POST['description'])));
 			$date = htmlspecialchars($_POST['date']);
 			$heure = htmlspecialchars($_POST['heure']);
 			$nbEscale = htmlspecialchars($_POST['nbLieu']);
@@ -48,7 +48,7 @@
 				$i = 1;
 				while ($i < $nbEscale+1){
 					$str = "arret".$i;
-					$escaletab[$i] = strtolower(addslashes(htmlspecialchars($_POST[$str])));
+					$escaletab[$i] = mb_strtolower(addslashes(htmlspecialchars($_POST[$str])));
 					echo ($escaletab[$i]);
 					$i++;
 				}
@@ -71,11 +71,9 @@
 		else {
 			include("..vue/vueAnnoncePosteError.php");
 		}
-		header("refresh: 0.5;url=./controlIndex.php");
-		echo ("Coucou !!!!");
+		header("refresh: 3;url=./controlIndex.php");
 	}
 	else {
-		echo ("PD !!!!");
 		header("Location:./controlIndex.php");
 	}
 	include("./footer.php");
