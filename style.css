@@ -277,3 +277,50 @@ footer {
     background-image: none;
 }
 .ui-helper-hidden-accessible { display:none; }
+
+table {
+    vertical-align: middle;
+    margin: auto;
+    margin-top:2em;
+    padding : auto;
+    text-align:center;
+    width: 100%;
+    border:none;
+    border-collapse:collapse;
+    border-radius: 10px 10px 0 0;
+
+}
+tr .title {
+    background-color: #ff0f1b;
+
+}
+th{
+    background-color: #ff0f1b;
+    line-height: 20px;
+}
+td {
+    background-color: #FFF;
+}
+td, th {
+    border-collapse:collapse;
+    padding: 5px;
+}
+
+table tr td a {
+    display:block;
+    height:100%;
+    width:100%;
+    color:#FFF;
+
+}
+
+button, .submit, #submit{
+    padding:8px;
+    color:#FFF;
+    font-size:1em;
+    outline:none;
+    border:1px solid #FFF;
+    background: #ff0f1b;
+}
+
+

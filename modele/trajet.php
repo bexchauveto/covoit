@@ -304,7 +304,7 @@ class Trajet {
 
 	public static function getPassagersNb($idTrajet){
 		global $mysqli;
-		$req = $mysqli->query("SELECT * FROM userTrajetPassager WHERE idTrajet = '$idTrajet'") or die ("ERROR");
+		$req = $mysqli->query("SELECT * FROM userTrajetPassager WHERE idTrajet = '$idTrajet' AND accepted='1'") or die ("ERROR");
 		$i=0;
 		while($tuple = $req->fetch_array()){
 			$i++;

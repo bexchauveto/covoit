@@ -169,6 +169,6 @@ $(function() {
 		</p>
 
 
-		<input type="submit" name="submit" value="Ajouter l'annonce">
+		<input type="submit" name="submit" class="submit" value="Ajouter l'annonce">
 	</fieldset>
 </form>
