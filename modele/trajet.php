@@ -375,6 +375,26 @@ class Trajet {
 		}
 	}
 
+	public static function getTrajetByIdCreator($idUser){
+		global $mysqli;
+		$req = $mysqli->query("SELECT idTrajet FROM userTrajetCreator WHERE idUser = '$idUser' ") or die ("ERROR");
+		$i = 0;
+		while($tuple = $req->fetch_array()){
+			$idTrajet = $tuple['idTrajet'];
+			$reqTrajet = $mysqli->query("SELECT * FROM trajet WHERE idTrajet='$idTrajet'") or die("ERROR");
+			$tupleTrajet = $reqTrajet->fetch_array();
+			$listeTrajet[$i] = $tupleTrajet;
+			$i++;
+		}
+		if($i == 0){
+			return 0;
+		}
+		else {
+			return $listeTrajet;
+		}
+
+	}
+
 }
 
 ?>
