@@ -32,20 +32,16 @@ $(function() {
 	    },
 	    minLength : 3
 	});
-	$('#nbpersonnes').keyup(function(){
-		prix = $('#prix').val();
-		nbpersonnes = $('#nbpersonnes').val();
-		$('#ppp').html("Donc "+prix/nbpersonnes+" € par personnes.");
-
-	});
 	$('#dateTraj').keyup(function() {
 	    dateTraj = $('#dateTraj').val();
 	    regexp = new RegExp("[0123][0-9][\/][01][0-9][\/][2][0][12][0-9]");
 	    if(regexp.test(dateTraj)){
 			$("#valideDate").html("Date valide !");
+			valideDateJS = true;
 	    }
 	    else {
 	    	$("#valideDate").html("Date non valide !");
+	    	valideDateJS = false;
 	    }
 	});
 	$('#heureTraj').keyup(function() {
@@ -53,9 +49,11 @@ $(function() {
 	    regexp = new RegExp("[012][0-9][h][0-5][0-9]");
 	    if(regexp.test(heureTraj)){
 	    	$("#valideHeure").html("Heure valide !");
+	    	valideHeureJS = true;
 	    }
 	    else {
 	    	$("#valideHeure").html("Heure non valide !");
+	    	valideHeureJS = false;
 	    }
 	});
 	$('#plusLieu').click(function(){
@@ -98,6 +96,14 @@ $(function() {
 		else {
 			$('#LieuArret').html('Nombre de lieu intermédiaire minimum (0) atteint');
 			nbLieuJS = 0;
+		}
+	});
+	$('.submit').submit(function(event){
+		if(valideHeureJS && valideDateJS){
+			return;
+		}
+		else {
+			event.preventDefault();
 		}
 	});
 });

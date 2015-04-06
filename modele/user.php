@@ -74,9 +74,9 @@ class User {
 
 	public static function getUserByID($idUser){
 		global $mysqli;
-		$req = $mysqli->query("SELECT * FROM user WHERE id ='$idUser'") or die ("ERROR");
+		$req = $mysqli->query("SELECT id, pseudo FROM user WHERE id ='$idUser'") or die ("ERROR");
 		$tuple = $req->fetch_array();
-		return new User ($idUser, $tuple['password'], $tuple['nickname'], $tuple['mail']);
+		return $tuple;
 	}
 
 	public static function getUserByNick($nickname){

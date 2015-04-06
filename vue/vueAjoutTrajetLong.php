@@ -37,9 +37,11 @@ $(function() {
 	    regexp =  new RegExp("[012]*[0-9][h][0-5]*[0-9]*");
 	    if(regexp.test(dureeTraj)){
 			$("#valideDuree").html("Duree valide !");
+			valideDureeJS = true;
 	    }
 	    else {
 	    	$("#valideDuree").html("Duree non valide !");
+	    	valideDureeJS = false;
 	    }
 	});
 	$('#dateTraj').keyup(function() {
@@ -47,9 +49,11 @@ $(function() {
 	    regexp = new RegExp("[0123][0-9][\/][01][0-9][\/][2][0][12][0-9]");
 	    if(regexp.test(dateTraj)){
 			$("#valideDate").html("Date valide !");
+			valideDateJS = true;
 	    }
 	    else {
 	    	$("#valideDate").html("Date non valide !");
+	    	valideDateJS = false;
 	    }
 	});
 	$('#heureTraj').keyup(function() {
@@ -57,9 +61,11 @@ $(function() {
 	    regexp = new RegExp("[012][0-9][h][0-5][0-9]");
 	    if(regexp.test(heureTraj)){
 	    	$("#valideHeure").html("Heure valide !");
+	    	valideHeureJS = true;
 	    }
 	    else {
 	    	$("#valideHeure").html("Heure non valide !");
+	    	valideHeureJS = false;
 	    }
 	});
 	$('#prix').keyup(function(){
@@ -67,9 +73,11 @@ $(function() {
 		regexp = new RegExp("[012]*[0-9]{2}");
 		if(regexp.test(prix)){
 	    	$("#validePrix").html("Prix valide !");
+	    	validePrixJS = true;
 	    }
 	    else {
 	    	$("#validePrix").html("Prix non valide !");
+	    	validePrixJS = false;
 	    }
 
 	});
@@ -120,6 +128,14 @@ $(function() {
 		else {
 			$('#villeEscale').html('Nombre de ville intermédiaire minimum (0) atteint');
 			nbEscaleJS = 0;
+		}
+	});
+	$('.submit').submit(function(event){
+		if(valideHeureJS && valideDateJS && validePrixJS && valideDureeJS){
+			return;
+		}
+		else {
+			event.preventDefault();
 		}
 	});
 });

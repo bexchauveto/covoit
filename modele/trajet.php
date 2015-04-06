@@ -312,6 +312,53 @@ class Trajet {
 		return $i;
 	}
 
+	public static function getTrajetById($idTrajet){
+		global $mysqli;
+		$req = $mysqli->query("SELECT * FROM trajet WHERE idTrajet='$idTrajet'") or die("ERROR");
+		$tuple = $req->fetch_array();
+		return $tuple;
+	}
+
+	public static function getCreatorByIdTrajet($idTrajet){
+		global $mysqli;
+		$req = $mysqli->query("SELECT * FROM userTrajetCreator WHERE idTrajet = '$idTrajet'") or die ("ERROR");
+		$tuple = $req->fetch_array();
+		return $tuple['idUser'];
+	}
+
+	public static function getPassagerByIdTrajet($idTrajet){
+		global $mysqli;
+		$req = $mysqli->query("SELECT * FROM userTrajetPassager WHERE idTrajet = '$idTrajet' AND accepted='1'") or die ("ERROR");
+		$i=0;
+		while($tuple = $req->fetch_array()){
+			$listePassager[$i] = $tuple['idUser'];
+			$i++;
+		}
+		if($i == 0){
+			return $i;
+		}
+		else {
+			return $listePassager;
+		}
+	}
+
+	public static function getFlagsByIdTrajet($idTrajet){
+		global $mysqli;
+		$req = $mysqli->query("SELECT * FROM trajetFlag WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		$i = 0;
+		while($tuple = $req->fetch_array()){
+			$listeFlag[$i] = $tuple['idFlag'];
+			$i++;
+		}
+		if($i == 0){
+			return $i;
+		}
+		else {
+			return $listeFlag;
+		}
+
+	}
+
 }
 
 ?>
