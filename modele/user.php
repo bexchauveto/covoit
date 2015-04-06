@@ -20,6 +20,10 @@ class User {
 
 	}
 
+	public function setID($id) {
+		$this->idUs = $id;
+	}
+
 	public static function createUser($nickname, $email, $pwd){
 		global $mysqli;
 		$req = $mysqli->query("INSERT INTO user (password, mail, pseudo) VALUES('$pwd', '$email', '$nickname')") or die ($mysqli->error);
@@ -86,19 +90,26 @@ class User {
 		return $tuple['id'];
 	}
 
-	public static function getNick() {
+	public static function getUserByNick($nickname) {
+		global $mysqli;
+		$req = $mysqli->query("SELECT * FROM user WHERE pseudo ='$nickname'") or die ("ERROR");
+		$tuple = $req->fetch_array();
+		return new User($tuple['mail'], $tuple['password'], $tuple['pseudo']);
+	}
+
+	public function getNick() {
 		return $this->nickname;
 	}
 
-	public static function getID() {
-		return $this->idUser;
+	public function getID() {
+		return $this->idUs;
 	}
 
-	public static function getMail() {
+	public function getMail() {
 		return $this->email;
 	}
 
-	public static function getPwd() {
+	public function getPwd() {
 		return $this->password;
 	}
 

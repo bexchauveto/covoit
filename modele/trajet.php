@@ -28,6 +28,42 @@ class Trajet {
 		$this->idTrajet = null;
 	}
 
+	public function getidTrajet() {
+		return $this->idTrajet;
+	}
+
+	public function gettypeTrajet() {
+		return $this->typeTrajet;
+	}
+
+	public function getvilleDepart() {
+		return $this->villeDepart;
+	}
+
+	public function getvilleArrivee() {
+		return $this->villeArrivee;
+	}
+
+	public function getprix() {
+		return $this->prix;
+	}
+
+	public function getdescription() {
+		return $this->description;
+	}
+
+	public function getdate() {
+		return $this->date;
+	}
+
+	public function getheure() {
+		return $this->heure;
+	}
+
+	public function getduree() {
+		return $this->duree;
+	}
+
 	public static function createTrajet($typeTrajet, $villeDepart, $villeArrivee, $prix, $nbpers, $duree, $description, $date, $heure, $tabescale, $tabflag, $idUser, $lienGoogle){
 		global $mysqli;
 		$req = $mysqli->query("SELECT * FROM trajet") or die("ERROR0");
@@ -275,6 +311,21 @@ class Trajet {
 			$i++;
 		}
 		return $listeTrajet;
+	}
+
+	public static function getTrajetsByUser($idUser){
+		global $mysqli;
+		$req = $mysqli->query("SELECT * FROM Trajet, (SELECT idTrajet
+														FROM userTrajetCreator
+														WHERE idUser = '$idUser') AS idT
+								WHERE Trajet.idTrajet = idT.idTrajet") or die("ERROR");
+		$i=0;
+		$listeTrajets = [];
+		while ($tuple = $req->fetch_array()) {
+			$listeTrajets[$i] = new Trajet($tuple['idTrajet'], $tuple['villedep'], $tuple['villearr'], $tuple['prix'], $tuple['description'], $tuple['dateTrajet'], $tuple['heure'], $tuple['duree']);
+			$i++;
+		}
+		return $listeTrajets;
 	}
 
 	public static function getTrajetByType($typeTrajet){

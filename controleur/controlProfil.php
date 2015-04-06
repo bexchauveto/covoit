@@ -7,7 +7,9 @@
 	if(isset($_SESSION['user'])){
 		$pseudo = $_SESSION['user'];
 		$idUser = User::getIdUserByNick($pseudo);
-		$reqTrajet = $mysqli->query("SELECT * FROM userTrajetCreator WHERE idUser = '$idUser'") or die ("ERROR");
+		/*$reqTrajet = $mysqli->query("SELECT * FROM userTrajetCreator WHERE idUser = '$idUser'") or die ("ERROR");*/
+		$user = User::getUserByNick($pseudo);
+		$user->setID($idUser);
 		include("../vue/vueProfil.php");
 	}
 	else {

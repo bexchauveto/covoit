@@ -1,7 +1,7 @@
 <script type="text/javascript"></script>
 
 <table  border='1'>
-	<caption>Liste des trajets au départ de l'INSA:</caption>
+	<caption class='important'>Liste des trajets au départ de l'INSA:</caption>
 	<thead>
 		<tr>
 			<th>Informations sur le trajets</th>
