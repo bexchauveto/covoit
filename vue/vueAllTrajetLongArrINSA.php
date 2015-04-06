@@ -36,7 +36,7 @@
  		echo "</td>";
  		echo "<td><form method='get'>";
  		echo "<input type=hidden name='idTrajet' value=".$idTrajet.">";
- 		echo "<button formaction='./controlAnnonce.php'> Voir la fiche du trajet</button>";
+ 		echo "<button formaction='./controlTrajetLong.php'> Voir la fiche du trajet</button>";
  		echo "</form></td>";
  		echo "</tr>";
 	}
