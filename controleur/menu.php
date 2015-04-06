@@ -35,7 +35,7 @@
 				<div id='cssmenu'>
 					<ul>
 						<li class='has-sub <?php if ($_SESSION['page'] == "index") echo "active" ; ?>'><a href='./controlIndex.php'><span>Accueil</span></a></li>
-					   	<li class='has-sub'><a href'#'=><span>Longs trajets</span></a>
+					   	<li class='has-sub <?php if ($_SESSION['page'] == "trajetsLongs") echo "active" ; ?>'><a href='#'><span>Longs trajets</span></a>
 						  <ul>
 							 <li><a href='./controlTrajetLongarrINSA.php'><span>Vers l'INSA</span></a></li>
 							 <li class='last'><a href='./controlTrajetLongdepINSA.php'><span>Au départ de l'INSA</span></a></li>
@@ -56,7 +56,7 @@
 							 <li class='last'><a href='#'><span>Andorre</span></a></li>
 						  </ul>
 					   	</li>
-					   	<li>
+					   	<li <?php if ($_SESSION['page'] == "ajoutAnnonce") {echo "class='active'";} ?>>
 					   		<a href='./controlAjoutAnnonce.php'><span>Ajouter une annonce</span></a>
 				   		</li>
 					   	<?php

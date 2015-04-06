@@ -1,5 +1,6 @@
 <?php
 	include("./header.php");
+	$_SESSION['page'] = "trajetsLongs";
 	include("./menu.php");
 	include("../modele/trajet.php");
 	if(isset($_SESSION['user'])){

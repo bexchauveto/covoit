@@ -1,5 +1,6 @@
 <?php
 	include("./header.php");
+	$_SESSION['page'] = "ajoutAnnonce";
 	include("./menu.php");
 	if(isset($_SESSION['user'])){
 		$pseudo = $_SESSION['user'];
