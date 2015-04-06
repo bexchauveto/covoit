@@ -42,7 +42,7 @@
 				$i = 1;
 				while ($i < $nbEscale+1){
 					$str = "arret".$i;
-					$escaletab[$i] = htmlspecialchars(addslashes(strtolower($_POST['$str'])));
+					$escaletab[$i] = htmlspecialchars(addslashes(strtolower($_POST[$str])));
 					$i++;
 				}
 			}
@@ -51,7 +51,8 @@
 			}
 			$flag = $_POST['flag'];
 			$lienGoogle = "lol";
-			$createAnnonce = Trajet::createTrajet($typeTrajet, $lieuDep, $lieuArr, 0, $nbpers, 0, $description, $date, $heure, $escaletab, $tabflag, $idUser, $lienGoogle);
+			echo ($idUser);
+			$createAnnonce = Trajet::createTrajet($typeTrajet, $lieuDep, $lieuArr, 0, $nbpers, 0, $description, $date, $heure, $escaletab, $flag, $idUser, $lienGoogle);
 		}
 		if($createAnnonce != null) {
 			include("../vue/vueAnnoncePoste.php");
