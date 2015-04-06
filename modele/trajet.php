@@ -54,8 +54,8 @@ class Trajet {
 					$req = $mysqli->query("INSERT INTO escale (ville) VALUES ('$value')") or die ("ERROR5");
 					$req = $mysqli->query("SELECT * FROM escale WHERE ville='$value'") or die("ERROR6");
 					$tupleNewVille = $req->fetch_array();
-					$nomVille=$tupleNewVille['ville'];
-					$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$nomVille', '$key')") or die ("ERROR7");
+					$idVille=$tupleNewVille['idVille'];
+					$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$idVille', '$key')") or die ("ERROR7");
 				}
 				else {
 					$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$value', '$key')") or die ("ERROR8");
@@ -70,8 +70,8 @@ class Trajet {
 					$req = $mysqli->query("INSERT INTO lieu (lieu) VALUES ('$value')") or die ("ERROR10");
 					$req = $mysqli->query("SELECT * FROM lieu WHERE lieu='$value'") or die("ERROR11");
 					$tupleNewLieu = $req->fetch_array();
-					$nomLieu=$tupleNewLieu['lieu'];
-					$req = $mysqli->query("INSERT INTO trajetLieu(idTrajet,idLieu,ordre) VALUES ('$idTrajet','$nomLieu', '$key')") or die ("ERROR12");
+					$idLieu=$tupleNewLieu['idLieu'];
+					$req = $mysqli->query("INSERT INTO trajetLieu(idTrajet,idLieu,ordre) VALUES ('$idTrajet','$idLieu', '$key')") or die ("ERROR12");
 				}
 				else {
 					$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idLieu,ordre) VALUES ('$idTrajet','$value', '$key')") or die ("ERROR13");
@@ -95,11 +95,11 @@ class Trajet {
 		if($tupleTrajet['typeTrajet'] != $typeTrajet){
 			$req = $mysqli->query("UPDATE trajet SET typeTrajet='$typeTrajet' WHERE idTrajet = '$idTrajet'") or die("ERROR");
 		}
-		if($tupleTrajet['villeDepart'] != $villeDepart){
-			$req = $mysqli->query("UPDATE trajet SET villeDepart='$villeDepart' WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		if($tupleTrajet['villedep'] != $villeDepart){
+			$req = $mysqli->query("UPDATE trajet SET villede='$villeDepart' WHERE idTrajet = '$idTrajet'") or die("ERROR");
 		}
-		if($tupleTrajet['villeArrivee'] != $villeArrivee){
-			$req = $mysqli->query("UPDATE trajet SET villeArrivee='$villeArrivee' WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		if($tupleTrajet['villearr'] != $villeArrivee){
+			$req = $mysqli->query("UPDATE trajet SET villearr='$villeArrivee' WHERE idTrajet = '$idTrajet'") or die("ERROR");
 		}
 		if($tupleTrajet['prix'] != $prix){
 			$req = $mysqli->query("UPDATE trajet SET prix='$prix' WHERE idTrajet = '$idTrajet'") or die("ERROR");
@@ -179,7 +179,7 @@ class Trajet {
 		$reqVille = $mysqli->query("SELECT * FROM escale") or die("ERROR");
 		$i = 0;
 		while($tupleville = $reqVille->fetch_array()){
-			$tableauVille[$i] = ucfirst($tupleville['ville']);
+			$tableauVille[$i] = $tupleville;
 			$i++;
 		}
 		if($i == 0) {
@@ -246,7 +246,7 @@ class Trajet {
 			$req2 = $mysqli->query("SELECT * FROM trajet WHERE idTrajet = '$idTrajet' ORDER BY dateTrajet ASC") or die("ERROR");
 			$j = 0;
 			while ($tupleTrajet = $req2->fetch_array()) {
-				$listeTrajet[$i][$j] = $tupleTrajet;
+				$listeTrajet[$j] = $tupleTrajet;
 				$j++;
 			}
 			$i++;
@@ -263,6 +263,53 @@ class Trajet {
 			$i++;
 		}
 		return $listeTrajet;
+	}
+
+	public static function getTrajetByTypeAndVille($typeTrajet, $ville){
+		global $mysqli;
+		if($typeTrajet == 1){
+			$req = $mysqli->query("SELECT * FROM trajet WHERE typeTrajet = '$typeTrajet' AND villearr='$ville'") or die ("ERROR");
+			$i = 0;
+			while($tuple = $req->fetch_array()){
+				$listeTrajet[$i]=$tuple;
+				$i++;
+			}
+		}
+		else {
+			$req = $mysqli->query("SELECT * FROM trajet WHERE typeTrajet = '$typeTrajet' AND villedep='$ville'") or die ("ERROR");
+			$i = 0;
+			while($tuple = $req->fetch_array()){
+				$listeTrajet[$i]=$tuple;
+				$i++;
+			}
+		}
+		return $listeTrajet;
+	}
+
+	public static function getAllEscaleByTrajet($idTrajet){
+		global $mysqli;
+		$req = $mysqli->query("SELECT * FROM trajetEscale WHERE idTrajet='$idTrajet' ORDER BY ordre ASC") or die("ERROR");
+		$i = 0;
+		while ($tuple = $req->fetch_array()){
+			$listeEscale[$i] = $tuple;
+			$i++;
+		}
+		if($i == 0){
+			return null;
+		}
+		else {
+			return $listeEscale;
+		}
+	}
+
+	public static function getPassagersNb($idTrajet){
+		global $mysqli;
+		$req = $mysqli->query("SELECT * FROM userTrajetPassager WHERE idTrajet = '$idTrajet'") or die ("ERROR");
+		$i=0;
+		while($tuple = $req->fetch_array()){
+			$i++;
+		}
+		return $i;
 	}
 
 }
