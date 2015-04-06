@@ -64,7 +64,7 @@ class Trajet {
 		}
 		else {
 			foreach ($tabescale as $key => $value) {
-				$req = $mysqli->query("SELECT id FROM trajetLieu WHERE lieu='$value'") or die ("ERROR9");
+				$req = $mysqli->query("SELECT idTrajet FROM trajetLieu WHERE lieu='$value'") or die ("ERROR9");
 				$tuple = $req->fetch_array();
 				if($tuple == null){
 					$req = $mysqli->query("INSERT INTO lieu (lieu) VALUES ('$value')") or die ("ERROR10");
