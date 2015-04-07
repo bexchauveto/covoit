@@ -73,6 +73,6 @@ $(function() {
 		<div id="resultmdp"></div>
 		<p><label>Email</label> :
 		<input type="email" name="email" id="email" required/></p>
-		</p><input type="submit" id="submit" value="S'inscrire" /></p></div>
+		<p><input type="submit" id="submit" value="S'inscrire" /></p></div>
 	</fieldset>
 </form>
