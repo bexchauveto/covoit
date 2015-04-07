@@ -5,7 +5,8 @@
 	$selsha1 = "coucou,ceciestleseldusha1lolololololololololookkk51";
 	$pseudo = $_POST['pseudo'];
 	$req = $mysqli->query("SELECT * FROM user WHERE pseudo='$pseudo'");
-	if($req == false){
+	$tuple = $req->fetch_array();
+	if($tuple == null){
 		$pwd = sha1($_POST['password'].$selsha1);
 		$mail = $_POST['email'];
 		$create = user::createUser($pseudo, $mail, $pwd);
