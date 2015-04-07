@@ -28,9 +28,9 @@ $(function() {
 						pseudoOK = false;
 					}	
 		  		},
-	            /*error: function() {
+	            error: function() {
 	              alert('The query doesn\'t work'); //Affiche la popup en boucle quand on veut s'inscrire avec un pseudo qui n'existe pas encore
-	          	}*/
+	          	}
 	      	});
       	}
       	else {

@@ -1,7 +1,6 @@
 <?php
 	include("../config.php");
 	include("../modele/user.php");
-	$lieu = $_GET['term']."%";
-	$tableauPseudo = User::getLieuByName($lieu);
+	$tableauPseudo = User::getAllUserNick();
 	echo json_encode($tableauPseudo);
 ?>

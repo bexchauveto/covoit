@@ -113,7 +113,7 @@ class User {
 		return $this->password;
 	}
 
-	public static function getAllUser() {
+	public static function getAllUserNick() {
 		global $mysqli;
 		$req = $mysqli->query("SELECT pseudo FROM user") or die ("ERROR");
 		$i = 0;
