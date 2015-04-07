@@ -123,5 +123,30 @@ class User {
 		}
 		return $tableauPseudo;
 	}
+
+	public static function accepter($iduser, $idtrajet) {
+		global $mysqli;
+		$req = $mysqli->query("UPDATE usertrajetpassager SET accepted = '1' WHERE idUser = '$iduser' AND idTrajet = '$idtrajet'") or die ("ERROR");
+		return $req;
+	}
+
+	public static function refuser($iduser, $idtrajet) {
+		global $mysqli;
+		$req = $mysqli->query("DELETE FROM usertrajetpassager WHERE idUser = '$iduser' AND idTrajet = '$idtrajet' AND accepted = '0'") or die ("ERROR");
+		return $req;
+	}
+
+	public static function retirer($iduser, $idtrajet) {
+		global $mysqli;
+		$req = $mysqli->query("UPDATE usertrajetpassager SET accepted = '0' WHERE idUser = '$iduser' AND idTrajet = '$idtrajet'") or die ("ERROR");
+		return $req;
+	}
+
+	public static function annuler($iduser, $idtrajet) {
+		global $mysqli;
+		$req = $mysqli->query("DELETE FROM usertrajetpassager WHERE idUser = '$iduser' AND idTrajet = '$idtrajet'") or die ("ERROR");
+		return $req;
+	}
+
 }
 ?>

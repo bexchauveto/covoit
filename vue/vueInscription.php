@@ -12,21 +12,22 @@ $(function() {
 	            timeout: 3000,
 	            dataType:"json",
 	            success: function(data) {
-	              if($.inArray(pseudoVal, data) == -1){
-	    		  		$("#validePseudo").html("Identifiant valide !");
-	    		  		pseudoOK = true;
-	    		  		if(pwdOK == true){
-	    		  			$('input[type="submit"]').removeAttr('disabled');
-	    		  		}
-	    		  		else {
-	    		  			$('input[type="submit"]').attr('disabled','disabled');
-	    		  		}
-	   			 }
-		   		 else {
-		    			$("#validePseudo").html("Identifiant déjà utilisé !");
-		    			$('input[type="submit"]').attr('disabled','disabled');
-		    			pseudoOK = false;
-		  		 }	},
+					if($.inArray(pseudoVal, data) == -1){
+				  		$("#validePseudo").html("Identifiant valide !");
+				  		pseudoOK = true;
+				  		if(pwdOK == true){
+				  			$('input[type="submit"]').removeAttr('disabled');
+				  		}
+				  		else {
+				  			$('input[type="submit"]').attr('disabled','disabled');
+				  		}
+					}
+					else {
+						$("#validePseudo").html("Identifiant déjà utilisé !");
+						$('input[type="submit"]').attr('disabled','disabled');
+						pseudoOK = false;
+					}	
+		  		},
 	            /*error: function() {
 	              alert('The query doesn\'t work'); //Affiche la popup en boucle quand on veut s'inscrire avec un pseudo qui n'existe pas encore
 	          	}*/

@@ -71,3 +71,78 @@
 ?>
 	</tbody>
 </table>
+
+<table  border='1'>
+	<caption class='important'>Demandes en attente</caption>
+	<thead>
+		<tr>
+			<th>Utilisateur</th>
+			<th>Mail</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+
+<?php
+	$passagers = Trajet::getTousLesPassagersEnAttenteByIdTrajet($trajet->getidTrajet());
+	foreach ($passagers as $passager) {
+	 	echo "<tr>";
+ 		echo "<td><p>";
+ 		echo $passager->getNick();
+ 		echo "</p></td>";
+ 		echo "<td><p>";
+ 		echo $passager->getMail();
+ 		echo "</p></td>";
+ 		echo "<td><form method='get'>";
+ 		echo "<input type=hidden name='idUserAAccepter' value=".$passager->getID().">";
+ 		echo "<input type=hidden name='idTrajetAGerer' value=".$trajet->getidTrajet().">";
+ 		echo "<button formaction='./controlGestionTrajet.php'>Accepter</button>";
+ 		echo "</form>";
+ 		echo "<form method='get'>";
+ 		echo "<input type=hidden name='idUserARefuser' value=".$passager->getID().">";
+ 		echo "<input type=hidden name='idTrajetAGerer' value=".$trajet->getidTrajet().">";
+ 		echo "<button formaction='./controlGestionTrajet.php'>Refuser</button>";
+ 		echo "</form></td>";
+ 		echo "</tr>";
+	}
+
+
+
+?>
+	</tbody>
+</table>
+
+<table  border='1'>
+	<caption class='important'>Passagers accepté(e)s</caption>
+	<thead>
+		<tr>
+			<th>Utilisateur</th>
+			<th>Mail</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+
+<?php
+	$passagers = Trajet::getTousLesPassagersAcceptesByIdTrajet($trajet->getidTrajet());
+	foreach ($passagers as $passager) {
+	 	echo "<tr>";
+ 		echo "<td><p>";
+ 		echo $passager->getNick();
+ 		echo "</p></td>";
+ 		echo "<td><p>";
+ 		echo $passager->getMail();
+ 		echo "</p></td>";
+ 		echo "<td><form method='get'>";
+ 		echo "<input type=hidden name='idUserARetirer' value=".$passager->getID().">";
+ 		echo "<input type=hidden name='idTrajetAGerer' value=".$trajet->getidTrajet().">";
+ 		echo "<button formaction='./controlGestionTrajet.php'>Retirer</button>";
+ 		echo "</form></td>";
+ 		echo "</tr>";
+	}
+
+
+
+?>
+	</tbody>
+</table>

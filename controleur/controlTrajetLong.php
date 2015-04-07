@@ -21,6 +21,10 @@
 		$listeFlag = Trajet::getFlagsByIdTrajet($idTrajet);
 		$listeAllFlag = Trajet::getAllFlags();
 		$thisUser = User::getIdUserByNick($_SESSION['user']);
+
+		$tupleTrajet = Trajet::getTrajetById($idTrajet);
+		$objTrajet = new Trajet($tupleTrajet['typeTrajet'], $tupleTrajet['villedep'], $tupleTrajet['villearr'], $tupleTrajet['prix'], $tupleTrajet['description'], $tupleTrajet['dateTrajet'], $tupleTrajet['heure'], $tupleTrajet['duree']);
+		$objTrajet->setidTrajet($tupleTrajet['idTrajet']);
 		include("../vue/vueTrajetLong.php");
 	}
 	else {

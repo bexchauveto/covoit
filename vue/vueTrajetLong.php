@@ -33,14 +33,27 @@
 		}
 	}
 	$placeOK = $trajet['nbpers'] - $nbpassager;
+
+	$etat = $objTrajet->getEtatByUser($thisUser);
 	if($_SESSION['user'] != $userCreator['pseudo'] && $placeOK > 0) {
+		if(isset($etat) && $etat != null) {
+			echo "<div class=centre><img src='";
+	 		if ($etat == 0) {
+	 			echo "../images/warning.png' alt='En attente de validation du conducteur' title='En attente de validation du conducteur";
+	 		}
+	 		else if ($etat == 1) {
+				echo "../images/check.png' alt='Le conducteur vous a accepté à bord title='Le conducteur vous a accepté à bord";
+	 		}
+	 		echo "' width='48' height='48'><p>Vous avez déjà demandé à participer à ce voyage.</div>";
+			}
+		else {
 ?>
 	<form method="post" action="./controlSubTrajet.php">
 		<input type="hidden" name="idUser" value="<?php echo $thisUser;?>">
 		<input type="hidden" name="idTrajet" value="<?php echo $idTrajet;?>">
 		<div class="submitdiv"><input type="submit" name="submit" class="submit" value="Faire une demande de transport"></div>
  	</form>
- 	<?php }
+ 	<?php }}
  	?>
 	</fieldset>
 </div>

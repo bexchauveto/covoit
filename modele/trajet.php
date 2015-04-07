@@ -333,6 +333,22 @@ class Trajet {
 		return $listeTrajets;
 	}
 
+	public static function getTrajetsByPassager($idUser){
+		global $mysqli;
+		$req = $mysqli->query("SELECT * FROM Trajet, (SELECT idTrajet
+														FROM userTrajetPassager
+														WHERE idUser = '$idUser') AS idT
+								WHERE Trajet.idTrajet = idT.idTrajet") or die("ERROR");
+		$i=0;
+		$listeTrajets = [];
+		while ($tuple = $req->fetch_array()) {
+			$listeTrajets[$i] = new Trajet($tuple['typeTrajet'], $tuple['villedep'], $tuple['villearr'], $tuple['prix'], $tuple['description'], $tuple['dateTrajet'], $tuple['heure'], $tuple['duree']);
+			$listeTrajets[$i]->setidTrajet($tuple['idTrajet']);
+			$i++;
+		}
+		return $listeTrajets;
+	}
+
 	public static function getTrajetByType($typeTrajet){
 		global $mysqli;
 		$req = $mysqli->query("SELECT * FROM trajet WHERE typeTrajet = '$typeTrajet' ORDER BY dateTrajet ASC") or die ("ERROR");
@@ -410,6 +426,7 @@ class Trajet {
 		global $mysqli;
 		$req = $mysqli->query("SELECT * FROM userTrajetPassager WHERE idTrajet = '$idTrajet' AND accepted='1'") or die ("ERROR");
 		$i=0;
+		$listePassager = [];
 		while($tuple = $req->fetch_array()){
 			$listePassager[$i] = $tuple['idUser'];
 			$i++;
@@ -422,10 +439,64 @@ class Trajet {
 		}
 	}
 
+	public static function getTousLesPassagersByIdTrajet($idTrajet){
+		global $mysqli;
+		$req = $mysqli->query("SELECT *
+								FROM User, (SELECT *
+											FROM userTrajetPassager
+												WHERE idTrajet = '$idTrajet') p
+								WHERE User.id = p.idUser") or die ("ERROR");
+		$i=0;
+		$listePassager = [];
+		while($tuple = $req->fetch_array()){
+			$listePassager[$i] = new User($tuple['mail'], $tuple['password'], $tuple['pseudo']);
+			$listePassager[$i]->setID($tuple['id']);
+			$i++;
+		}
+		return $listePassager;
+	}
+
+	public static function getTousLesPassagersEnAttenteByIdTrajet($idTrajet){
+		global $mysqli;
+		$req = $mysqli->query("SELECT *
+								FROM User, (SELECT *
+											FROM userTrajetPassager
+												WHERE idTrajet = '$idTrajet'
+												AND accepted = '0') p
+								WHERE User.id = p.idUser") or die ("ERROR");
+		$i=0;
+		$listePassager = [];
+		while($tuple = $req->fetch_array()){
+			$listePassager[$i] = new User($tuple['mail'], $tuple['password'], $tuple['pseudo']);
+			$listePassager[$i]->setID($tuple['id']);
+			$i++;
+		}
+		return $listePassager;
+	}
+
+	public static function getTousLesPassagersAcceptesByIdTrajet($idTrajet){
+		global $mysqli;
+		$req = $mysqli->query("SELECT *
+								FROM User, (SELECT *
+											FROM userTrajetPassager
+												WHERE idTrajet = '$idTrajet'
+												AND accepted = '1') p
+								WHERE User.id = p.idUser") or die ("ERROR");
+		$i=0;
+		$listePassager = [];
+		while($tuple = $req->fetch_array()){
+			$listePassager[$i] = new User($tuple['mail'], $tuple['password'], $tuple['pseudo']);
+			$listePassager[$i]->setID($tuple['id']);
+			$i++;
+		}
+		return $listePassager;
+	}
+
 	public static function getFlagsByIdTrajet($idTrajet){
 		global $mysqli;
 		$req = $mysqli->query("SELECT * FROM trajetFlag WHERE idTrajet = '$idTrajet'") or die("ERROR");
 		$i = 0;
+		$listeFlag = [];
 		while($tuple = $req->fetch_array()){
 			$listeFlag[$i] = $tuple['idFlag'];
 			$i++;
@@ -443,6 +514,7 @@ class Trajet {
 		global $mysqli;
 		$req = $mysqli->query("SELECT * FROM flags") or die("ERROR");
 		$i = 0;
+		$listeFlag = [];
 		while($tuple = $req->fetch_array()){
 			$listeFlag[$i] = $tuple;
 			$i++;
@@ -459,6 +531,7 @@ class Trajet {
 		global $mysqli;
 		$req = $mysqli->query("SELECT idTrajet FROM userTrajetCreator WHERE idUser = '$idUser' ") or die ("ERROR");
 		$i = 0;
+		$listeTrajet = [];
 		while($tuple = $req->fetch_array()){
 			$idTrajet = $tuple['idTrajet'];
 			$reqTrajet = $mysqli->query("SELECT * FROM trajet WHERE idTrajet='$idTrajet'") or die("ERROR");
@@ -473,6 +546,27 @@ class Trajet {
 			return $listeTrajet;
 		}
 
+	}
+
+	public function getEtatByUser($idUser) {
+		global $mysqli;
+		$req = $mysqli->query("SELECT accepted FROM usertrajetpassager WHERE idUser = '$idUser' AND idTrajet = '$this->idTrajet'") or die ("ERROR");
+		$tuple = $req->fetch_array();
+		$ret = $tuple['accepted'];
+		return $ret;
+	}
+
+	public function getMailCreator() {
+		global $mysqli;
+		$req = $mysqli->query("SELECT mail
+								FROM user, (SELECT idUser
+											FROM userTrajetCreator
+											WHERE idTrajet = '5') createur
+
+								WHERE user.id = createur.idUser");
+		$tuple = $req->fetch_array();
+		$ret = $tuple['mail'];
+		return $ret;
 	}
 
 }
