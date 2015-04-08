@@ -62,16 +62,16 @@ $(function() {
 
 <form method="post" action="../controleur/controlInscription.php">
 	<fieldset> 
-		<div class="submitdiv"><p><label>Identifiant</label> :
+		<div class="submitdiv"><p><label for="pseudo">Identifiant</label> :
 		<input type="text" name="pseudo" id="pseudo" required/>
 		<div id="validePseudo" ></div>
 		</p>
-		<p><label>Mot de passe</label> :
+		<p><label for="password">Mot de passe</label> :
 		<input type="password" name="password" id="password" required/></p>
-		<p><label>Mot de passe de vérification</label> :
+		<p><label for="password2">Mot de passe de vérification</label> :
 		<input type="password" name="password2" id="password2" required /></p>
 		<div id="resultmdp"></div>
-		<p><label>Email</label> :
+		<p><label for="email">Email</label> :
 		<input type="email" name="email" id="email" required/></p>
 		<p><input type="submit" id="submit" value="S'inscrire" /></p></div>
 	</fieldset>

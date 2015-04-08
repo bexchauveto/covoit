@@ -569,6 +569,30 @@ class Trajet {
 		return $ret;
 	}
 
+	public static function getTrajetsByTypeDepartArriveeNonfumeurBagages($type, $depart, $arrivee, $nonfumeur, $bagages) {
+		global $mysqli;
+		$req = $mysqli->query("SELECT *
+FROM trajet, (SELECT DISTINCT idTrajet
+				FROM (SELECT *
+						FROM (SELECT trajet.idTrajet, idFlag, typeTrajet, villedep, villearr, prix, nbpers, description, dateTrajet, heure
+								FROM trajetflag, trajet
+								WHERE trajetflag.idTrajet = trajet.idTrajet) flags
+						WHERE villedep = '$depart' OR villearr = '$arrivee' OR flags.idFlag = '$nonfumeur' OR flags.idFlag = '$bagages') recherche) idrecherhe
+WHERE idrecherhe.idTrajet = trajet.idTrajet
+AND typeTrajet = '$type'
+ORDER BY dateTrajet ASC") or die ("ERROR");
+		$i = 0;
+		$listeTrajet = [];
+		while($tuple = $req->fetch_array()){
+			$listeTrajet[$i]=$tuple;
+			$i++;
+		}
+		return $listeTrajet;		
+	}
+
 }
 
+
+
+ 
 ?>

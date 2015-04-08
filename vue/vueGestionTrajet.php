@@ -113,7 +113,7 @@
 </table>
 
 <table  border='1'>
-	<caption class='important'>Passagers accepté(e)s</caption>
+	<caption class='important'>Passagers/ères accepté(e)s</caption>
 	<thead>
 		<tr>
 			<th>Utilisateur</th>

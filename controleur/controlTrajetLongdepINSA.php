@@ -10,6 +10,7 @@
 			$tableauEscale[$key] = Trajet::getAllEscaleByTrajet($idTrajet);
 			$tableauNbPassager[$idTrajet] = Trajet::getPassagersNb($idTrajet);
 		}
+		$type = 2; //Afin dans les recherches de savoir dans quel type on est
 		$ListeEscale = Trajet::getAllEscale();
 		include("../vue/vueAllTrajetLongDepINSA.php");
 	}
