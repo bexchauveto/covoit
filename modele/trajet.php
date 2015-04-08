@@ -177,25 +177,25 @@ class Trajet {
 		if($tupleTrajet['heure'] != $heure){
 			$req = $mysqli->query("UPDATE trajet SET heure='$heure' WHERE idTrajet = '$idTrajet'") or die("ERROR");
 		}
-		$req = $mysqli->query("DELETE FROM trajetEscale WHERE idTrajet='$idTrajet'") or die("ERROR");
+		$req = $mysqli->query("DELETE FROM trajetescale WHERE idTrajet='$idTrajet'") or die("ERROR");
 		foreach ($tabescale as $key => $value) {
-			$req = $mysqli->query("SELECT id FROM trajetEscale WHERE ville='$value'") or die ("ERROR");
+			$req = $mysqli->query("SELECT id FROM trajetescale WHERE ville='$value'") or die ("ERROR");
 			$tuple = $req->fetch_array();
 			if($tuple == null){
 				$req = $mysqli->query("INSERT INTO escale (ville) VALUES('$value')") or die ("ERROR");
 				$req = $mysqli->query("SELECT * FROM escale WHERE ville='$value'") or die("ERROR");
 				$tupleNewVille = $req->fetch_array();
 				$nomVille=$tupleNewVille['ville'];
-				$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$nomVille', '$key')") or die ("ERROR");
+				$req = $mysqli->query("INSERT INTO trajetescale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$nomVille', '$key')") or die ("ERROR");
 			}
 			else {
-				$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$value', '$key')") or die ("ERROR");
+				$req = $mysqli->query("INSERT INTO trajetescale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$value', '$key')") or die ("ERROR");
 			}
 		}
-		$req = $mysqli->query("DELETE FROM trajetFlag WHERE idTrajet='$idTrajet'") or die("ERROR");
+		$req = $mysqli->query("DELETE FROM trajetflag WHERE idTrajet='$idTrajet'") or die("ERROR");
 		if ($tabflag != null) {
 			foreach ($tabflag as $key => $value) {
-				$req = $mysqli->query("INSERT INTO trajetFlag (idTrajet,idFlag) VALUES ('$idTrajet','$value')") or die ("ERROR");
+				$req = $mysqli->query("INSERT INTO trajetflag (idTrajet,idFlag) VALUES ('$idTrajet','$value')") or die ("ERROR");
 			}
 		}
 		$req = $mysqli->query("INSERT INTO usertrajetGoogle (idTrajet, lienGoogle) VALUES ('$idTrajet','$lienGoogle')") or die ("ERROR");
@@ -205,11 +205,11 @@ class Trajet {
 	public static function deleteTrajet($idTrajet){
 		global $mysqli;
 		$req = $mysqli->query("DELETE FROM trajet WHERE idTrajet='$idTrajet'") or die ("ERROR");
-		$req = $mysqli->query("DELETE FROM userTrajetCreator WHERE idTrajet='$idTrajet'") or die ("ERROR");
-		$req = $mysqli->query("DELETE FROM trajetEscale WHERE idTrajet='$idTrajet'") or die ("ERROR");
-		$req = $mysqli->query("DELETE FROM trajetFlag WHERE idTrajet='$idTrajet'") or die ("ERROR");
-		$req = $mysqli->query("DELETE FROM userTrajetGoogle WHERE idTrajet='$idTrajet'") or die ("ERROR");
-		$req = $mysqli->query("DELETE FROM userTrajetPassager WHERE idTrajet='$idTrajet'") or die("ERROR");
+		$req = $mysqli->query("DELETE FROM usertrajetcreator WHERE idTrajet='$idTrajet'") or die ("ERROR");
+		$req = $mysqli->query("DELETE FROM trajetescale WHERE idTrajet='$idTrajet'") or die ("ERROR");
+		$req = $mysqli->query("DELETE FROM trajetflag WHERE idTrajet='$idTrajet'") or die ("ERROR");
+		$req = $mysqli->query("DELETE FROM usertrajetgoogle WHERE idTrajet='$idTrajet'") or die ("ERROR");
+		$req = $mysqli->query("DELETE FROM usertrajetpassager WHERE idTrajet='$idTrajet'") or die("ERROR");
 		return $req;
 	}
 
@@ -233,7 +233,7 @@ class Trajet {
 		$req = $mysqli->query("SELECT idMessage FROM message WHERE auteur='$pseudo' AND datePost='$date' AND heurePost='$heure' ") or die("ERROR");
 		$tuple = $req->fetch_array();
 		$idMessage = $tuple['idMessage'];
-		$req = $mysqli->query("INSERT INTO trajetMessage (idTrajet,idMessage) VALUES ('$idTrajet','$idMessage') ") or die("ERROR");
+		$req = $mysqli->query("INSERT INTO trajetmessage (idTrajet,idMessage) VALUES ('$idTrajet','$idMessage') ") or die("ERROR");
 		return $req;
 	}
 
@@ -302,7 +302,7 @@ class Trajet {
 
 	public static function getTrajetByUser($idUser){
 		global $mysqli;
-		$req = $mysqli->query("SELECT idTrajet FROM userTrajetCreator WHERE idUser = '$idUser'") or die("ERROR");
+		$req = $mysqli->query("SELECT idTrajet FROM usertrajetcreator WHERE idUser = '$idUser'") or die("ERROR");
 		$i=0;
 		while ($tuple = $req->fetch_array()) {
 			$idTrajet = $tuple['idTrajet'];
@@ -319,10 +319,10 @@ class Trajet {
 
 	public static function getTrajetsByUser($idUser){
 		global $mysqli;
-		$req = $mysqli->query("SELECT * FROM Trajet, (SELECT idTrajet
-														FROM userTrajetCreator
+		$req = $mysqli->query("SELECT * FROM trajet, (SELECT idTrajet
+														FROM usertrajetcreator
 														WHERE idUser = '$idUser') AS idT
-								WHERE Trajet.idTrajet = idT.idTrajet") or die("ERROR");
+								WHERE trajet.idTrajet = idT.idTrajet") or die("ERROR");
 		$i=0;
 		$listeTrajets = [];
 		while ($tuple = $req->fetch_array()) {
@@ -335,10 +335,10 @@ class Trajet {
 
 	public static function getTrajetsByPassager($idUser){
 		global $mysqli;
-		$req = $mysqli->query("SELECT * FROM Trajet, (SELECT idTrajet
-														FROM userTrajetPassager
+		$req = $mysqli->query("SELECT * FROM trajet, (SELECT idTrajet
+														FROM usertrajetpassager
 														WHERE idUser = '$idUser') AS idT
-								WHERE Trajet.idTrajet = idT.idTrajet") or die("ERROR");
+								WHERE trajet.idTrajet = idT.idTrajet") or die("ERROR");
 		$i=0;
 		$listeTrajets = [];
 		while ($tuple = $req->fetch_array()) {
@@ -384,7 +384,7 @@ class Trajet {
 
 	public static function getAllEscaleByTrajet($idTrajet){
 		global $mysqli;
-		$req = $mysqli->query("SELECT * FROM trajetEscale WHERE idTrajet='$idTrajet' ORDER BY ordre ASC") or die("ERROR");
+		$req = $mysqli->query("SELECT * FROM trajetescale WHERE idTrajet='$idTrajet' ORDER BY ordre ASC") or die("ERROR");
 		$i = 0;
 		while ($tuple = $req->fetch_array()){
 			$listeEscale[$i] = $tuple;
@@ -400,7 +400,7 @@ class Trajet {
 
 	public static function getPassagersNb($idTrajet){
 		global $mysqli;
-		$req = $mysqli->query("SELECT * FROM userTrajetPassager WHERE idTrajet = '$idTrajet' AND accepted='1'") or die ("ERROR");
+		$req = $mysqli->query("SELECT * FROM usertrajetpassager WHERE idTrajet = '$idTrajet' AND accepted='1'") or die ("ERROR");
 		$i=0;
 		while($tuple = $req->fetch_array()){
 			$i++;
@@ -417,14 +417,14 @@ class Trajet {
 
 	public static function getCreatorByIdTrajet($idTrajet){
 		global $mysqli;
-		$req = $mysqli->query("SELECT * FROM userTrajetCreator WHERE idTrajet = '$idTrajet'") or die ("ERROR");
+		$req = $mysqli->query("SELECT * FROM usertrajetcreator WHERE idTrajet = '$idTrajet'") or die ("ERROR");
 		$tuple = $req->fetch_array();
 		return $tuple['idUser'];
 	}
 
 	public static function getPassagerByIdTrajet($idTrajet){
 		global $mysqli;
-		$req = $mysqli->query("SELECT * FROM userTrajetPassager WHERE idTrajet = '$idTrajet' AND accepted='1'") or die ("ERROR");
+		$req = $mysqli->query("SELECT * FROM usertrajetpassager WHERE idTrajet = '$idTrajet' AND accepted='1'") or die ("ERROR");
 		$i=0;
 		$listePassager = [];
 		while($tuple = $req->fetch_array()){
@@ -442,10 +442,10 @@ class Trajet {
 	public static function getTousLesPassagersByIdTrajet($idTrajet){
 		global $mysqli;
 		$req = $mysqli->query("SELECT *
-								FROM User, (SELECT *
-											FROM userTrajetPassager
+								FROM user, (SELECT *
+											FROM usertrajetpassager
 												WHERE idTrajet = '$idTrajet') p
-								WHERE User.id = p.idUser") or die ("ERROR");
+								WHERE user.id = p.idUser") or die ("ERROR");
 		$i=0;
 		$listePassager = [];
 		while($tuple = $req->fetch_array()){
@@ -459,11 +459,11 @@ class Trajet {
 	public static function getTousLesPassagersEnAttenteByIdTrajet($idTrajet){
 		global $mysqli;
 		$req = $mysqli->query("SELECT *
-								FROM User, (SELECT *
-											FROM userTrajetPassager
+								FROM user, (SELECT *
+											FROM usertrajetpassager
 												WHERE idTrajet = '$idTrajet'
 												AND accepted = '0') p
-								WHERE User.id = p.idUser") or die ("ERROR");
+								WHERE user.id = p.idUser") or die ("ERROR");
 		$i=0;
 		$listePassager = [];
 		while($tuple = $req->fetch_array()){
@@ -477,11 +477,11 @@ class Trajet {
 	public static function getTousLesPassagersAcceptesByIdTrajet($idTrajet){
 		global $mysqli;
 		$req = $mysqli->query("SELECT *
-								FROM User, (SELECT *
-											FROM userTrajetPassager
+								FROM user, (SELECT *
+											FROM usertrajetpassager
 												WHERE idTrajet = '$idTrajet'
 												AND accepted = '1') p
-								WHERE User.id = p.idUser") or die ("ERROR");
+								WHERE user.id = p.idUser") or die ("ERROR");
 		$i=0;
 		$listePassager = [];
 		while($tuple = $req->fetch_array()){
@@ -494,7 +494,7 @@ class Trajet {
 
 	public static function getFlagsByIdTrajet($idTrajet){
 		global $mysqli;
-		$req = $mysqli->query("SELECT * FROM trajetFlag WHERE idTrajet = '$idTrajet'") or die("ERROR");
+		$req = $mysqli->query("SELECT * FROM trajetflag WHERE idTrajet = '$idTrajet'") or die("ERROR");
 		$i = 0;
 		$listeFlag = [];
 		while($tuple = $req->fetch_array()){
@@ -529,7 +529,7 @@ class Trajet {
 
 	public static function getTrajetByIdCreator($idUser){
 		global $mysqli;
-		$req = $mysqli->query("SELECT idTrajet FROM userTrajetCreator WHERE idUser = '$idUser' ") or die ("ERROR");
+		$req = $mysqli->query("SELECT idTrajet FROM usertrajetcreator WHERE idUser = '$idUser' ") or die ("ERROR");
 		$i = 0;
 		$listeTrajet = [];
 		while($tuple = $req->fetch_array()){
@@ -560,7 +560,7 @@ class Trajet {
 		global $mysqli;
 		$req = $mysqli->query("SELECT mail
 								FROM user, (SELECT idUser
-											FROM userTrajetCreator
+											FROM usertrajetcreator
 											WHERE idTrajet = '5') createur
 
 								WHERE user.id = createur.idUser");
