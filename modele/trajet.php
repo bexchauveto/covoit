@@ -76,7 +76,7 @@ class Trajet {
 		$tupleTrajet = $req->fetch_array();
 		$idTrajet = $tupleTrajet['idTrajet'];
 		
-		$req = $mysqli->query("INSERT INTO userTrajetCreator (idUser,idTrajet) VALUES ('$idUser','$idTrajet')") or die ("ERROR3");
+		$req = $mysqli->query("INSERT INTO usertrajetcreator (idUser,idTrajet) VALUES ('$idUser','$idTrajet')") or die ("ERROR3");
 
 		if($typeTrajet == 1 || $typeTrajet == 2 || $typeTrajet == 6 || $typeTrajet == 7 || $typeTrajet == 8 || $typeTrajet == 9){
 
@@ -100,10 +100,10 @@ class Trajet {
 						$req = $mysqli->query("SELECT * FROM escale WHERE ville='$value'") or die("ERROR6");
 						$tupleNewVille = $req->fetch_array();
 						$idVille=$tupleNewVille['idVille'];
-						$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$idVille', '$key')") or die ("ERROR7");
+						$req = $mysqli->query("INSERT INTO trajetescale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$idVille', '$key')") or die ("ERROR7");
 					}
 					else {
-						$req = $mysqli->query("INSERT INTO trajetEscale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$value', '$key')") or die ("ERROR8");
+						$req = $mysqli->query("INSERT INTO trajetescale(idTrajet,idVille,ordre) VALUES ('$idTrajet','$value', '$key')") or die ("ERROR8");
 					}
 				}
 			}
@@ -129,20 +129,20 @@ class Trajet {
 						$req = $mysqli->query("SELECT * FROM lieu WHERE lieu='$value'") or die("ERROR11");
 						$tupleNewLieu = $req->fetch_array();
 						$idLieu=$tupleNewLieu['idLieu'];
-						$req = $mysqli->query("INSERT INTO trajetLieu(idTrajet,idLieu,ordre) VALUES ('$idTrajet','$idLieu', '$key')") or die ("ERROR12");
+						$req = $mysqli->query("INSERT INTO trajetlieu(idTrajet,idLieu,ordre) VALUES ('$idTrajet','$idLieu', '$key')") or die ("ERROR12");
 					}
 					else {
-						$req = $mysqli->query("INSERT INTO trajetLieu(idTrajet,idLieu,ordre) VALUES ('$idTrajet','$value', '$key')") or die ("ERROR13");
+						$req = $mysqli->query("INSERT INTO trajetlieu(idTrajet,idLieu,ordre) VALUES ('$idTrajet','$value', '$key')") or die ("ERROR13");
 					}
 				}
 			}
 		}
 		if ($tabflag != null) {
 			foreach ($tabflag as $key => $value) {
-				$req = $mysqli->query("INSERT INTO trajetFlag (idTrajet,idFlag) VALUES ('$idTrajet','$value')") or die ("ERROR14");
+				$req = $mysqli->query("INSERT INTO trajetflag (idTrajet,idFlag) VALUES ('$idTrajet','$value')") or die ("ERROR14");
 			}
 		}
-		$req = $mysqli->query("INSERT INTO usertrajetGoogle (idTrajet, lienGoogle) VALUES ('$idTrajet','$lienGoogle')") or die ("ERROR15");
+		$req = $mysqli->query("INSERT INTO usertrajetgoogle (idTrajet, lienGoogle) VALUES ('$idTrajet','$lienGoogle')") or die ("ERROR15");
 		return $req;
 	}
 
@@ -198,7 +198,7 @@ class Trajet {
 				$req = $mysqli->query("INSERT INTO trajetflag (idTrajet,idFlag) VALUES ('$idTrajet','$value')") or die ("ERROR");
 			}
 		}
-		$req = $mysqli->query("INSERT INTO usertrajetGoogle (idTrajet, lienGoogle) VALUES ('$idTrajet','$lienGoogle')") or die ("ERROR");
+		$req = $mysqli->query("INSERT INTO usertrajetgoogle (idTrajet, lienGoogle) VALUES ('$idTrajet','$lienGoogle')") or die ("ERROR");
 		return $req;
 	}
 
@@ -216,14 +216,14 @@ class Trajet {
 	public static function subscribeTrajet($idTrajet, $idUser) {
 		global $mysqli;
 		$boolfalse = 0;
-		$req = $mysqli->query("INSERT INTO userTrajetPassager (idTrajet,idUser,accepted) VALUES ('$idTrajet','$idUser','$boolfalse')") or die("ERROR");
+		$req = $mysqli->query("INSERT INTO usertrajetpassager (idTrajet,idUser,accepted) VALUES ('$idTrajet','$idUser','$boolfalse')") or die("ERROR");
 		return $req;
 	}
 
 	public static function accepteSub($idTrajet, $idUser) {
 		global $mysqli;
 		$booltrue = 1;
-		$req = $mysqli->query("UPDATE userTrajetPassager SET accepted='$booltrue' WHERE idTrajet='$idTrajet' AND idUser='$idUser'") or die("ERROR");
+		$req = $mysqli->query("UPDATE usertrajetpassager SET accepted='$booltrue' WHERE idTrajet='$idTrajet' AND idUser='$idUser'") or die("ERROR");
 		return $req;
 	}
 
