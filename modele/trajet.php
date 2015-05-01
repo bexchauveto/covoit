@@ -386,6 +386,7 @@ class Trajet {
 		global $mysqli;
 		$req = $mysqli->query("SELECT * FROM trajetescale WHERE idTrajet='$idTrajet' ORDER BY ordre ASC") or die("ERROR");
 		$i = 0;
+		$listeEscale = [];
 		while ($tuple = $req->fetch_array()){
 			$listeEscale[$i] = $tuple;
 			$i++;
@@ -498,7 +499,7 @@ class Trajet {
 		$i = 0;
 		$listeFlag = [];
 		while($tuple = $req->fetch_array()){
-			$listeFlag[$i] = $tuple['idFlag'];
+			$listeFlag[$i] = $tuple;
 			$i++;
 		}
 		if($i == 0){
@@ -569,18 +570,14 @@ class Trajet {
 		return $ret;
 	}
 
-	public static function getTrajetsByTypeDepartArriveeNonfumeurBagages($type, $depart, $arrivee, $nonfumeur, $bagages) {
+	public static function getTrajetsByTypeDepartArriveeDateHeure($type, $depart, $arrivee, $date, $heure) {
 		global $mysqli;
-		$req = $mysqli->query("SELECT *
-FROM trajet, (SELECT DISTINCT idTrajet
-				FROM (SELECT *
-						FROM (SELECT trajet.idTrajet, idFlag, typeTrajet, villedep, villearr, prix, nbpers, description, dateTrajet, heure
-								FROM trajetflag, trajet
-								WHERE trajetflag.idTrajet = trajet.idTrajet) flags
-						WHERE villedep = '$depart' OR villearr = '$arrivee' OR flags.idFlag = '$nonfumeur' OR flags.idFlag = '$bagages') recherche) idrecherhe
-WHERE idrecherhe.idTrajet = trajet.idTrajet
-AND typeTrajet = '$type'
-ORDER BY dateTrajet ASC") or die ("ERROR");
+		$req = $mysqli->query("SELECT * FROM (SELECT * FROM trajet WHERE typeTrajet = '$type') voyagesType
+	WHERE villedep LIKE '%$depart%'
+	AND villearr LIKE '%$arrivee%'
+	AND dateTrajet LIKE '%$date%'
+	AND heure LIKE '%$heure%'
+	ORDER BY dateTrajet, heure ASC") or die ("ERROR");
 		$i = 0;
 		$listeTrajet = [];
 		while($tuple = $req->fetch_array()){
@@ -589,6 +586,7 @@ ORDER BY dateTrajet ASC") or die ("ERROR");
 		}
 		return $listeTrajet;		
 	}
+
 
 }
 

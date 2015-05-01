@@ -9,7 +9,7 @@
 		include("../vue/vueAjoutAnnonce.php");
 	}
 	else {
-		header("Location:./controlIndex.php");
+		header("Location:./controlErreurDroitAffichage.php");
 	}
 	include("./footer.php");
 ?>

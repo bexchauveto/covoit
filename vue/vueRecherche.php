@@ -3,15 +3,13 @@
 	<div class="submitdiv">
 		<p>
 			<label for="depart">Départ</label> :
-			<input type="search" name="depart" id="depart" placeholder="Toulouse"/>
+			<input type="search" name="depart" id="depart" />
 			<label for="arrivee">Arrivée</label> :
-			<input type="search" name="arrivee" id="arrivee" placeholder="Montpellier" />
-		</p>
-		<p>
-			<input type="checkbox" name="non-fumeur" id="non-fumeur" value="1"/>
-			<label for="non-fumeur"><img src="../images/non-fumeur.png" width='50' height='50'class='flag'/></label>
-			<input type="checkbox" name="bagages" id="bagages" value="1"/>
-			<label for="bagages"><img src="../images/bagages.png" width='50' height='50'class='flag'/></label>
+			<input type="search" name="arrivee" id="arrivee" />
+			<label for="date">Date</label> :
+			<input type="search" name="date" id="date" />
+			<label for="heure">Heure</label> :
+			<input type="search" name="heure" id="heure" />
 		</p>
 		<input type=hidden name='typeTrajet' value="<?php echo $type;?>"/>
 		<input type="submit" id="submit" value="Rechercher" />

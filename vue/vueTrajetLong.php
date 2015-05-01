@@ -26,7 +26,7 @@
 	if ($listeFlag != null) {
 		foreach ($listeFlag as $flag) {
 			foreach ($listeAllFlag as $flags) {
-				if($flag == $flags['idFlag']) {
+				if($flag['idFlag'] == $flags['idFlag']) {
 					echo "<p><img width='50' height='50'class='flag' src='".$flags['lienImage']."'> ".$flags['titre']."</p>";
 				}
 			}
@@ -35,7 +35,7 @@
 	$placeOK = $trajet['nbpers'] - $nbpassager;
 
 	$etat = $objTrajet->getEtatByUser($thisUser);
-	if($_SESSION['user'] != $userCreator['pseudo'] && $placeOK > 0) {
+	if($thisUser != $userCreator['pseudo'] && $placeOK > 0) {
 		if(isset($etat) && $etat != null) {
 			echo "<div class=centre><img src='";
 	 		if ($etat == 0) {
@@ -53,7 +53,8 @@
 		<input type="hidden" name="idTrajet" value="<?php echo $idTrajet;?>">
 		<div class="submitdiv"><input type="submit" name="submit" class="submit" value="Faire une demande de transport"></div>
  	</form>
- 	<?php }}
+ 	<?php 	}
+ 	}
  	?>
 	</fieldset>
 </div>

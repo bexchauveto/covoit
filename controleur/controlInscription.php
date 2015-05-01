@@ -11,15 +11,23 @@
 		$mail = $_POST['email'];
 		$create = user::createUser($pseudo, $mail, $pwd);
 		if($create){
+			// Connexion automatique à l'inscription
+			$user = User::exist($pseudo, $pwd);
+			if ($user == True){
+				$_SESSION['user']=$pseudo;
+			}
+
 			include("../vue/vueInscriptOK.php");
+			header("refresh: 5;url=./controlProfil.php");
 		}
 		else {
 			include("../vue/vueInscriptKO.php");
+			header("refresh: 5;url=./controlIndex.php");
 		}
 	}
 	else {
 		include("../vue/vueInscriptKO.php");
+		header("refresh: 5;url=./controlIndex.php");
 	}
-	header("refresh: 3;url=./controlIndex.php");
 	include("./footer.php");
 ?>

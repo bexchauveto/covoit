@@ -2,24 +2,20 @@
 	include("./header.php");
 	include("./menu.php");
 	include("../modele/trajet.php");
-	if(isset($_SESSION['user'])){
+	//if(isset($_SESSION['user'])){
 		$depart = $_POST['depart'];
 		$arrivee = $_POST['arrivee'];
-		if (isset($_POST['non-fumeur'])) {
-			$nonfumeur = $_POST['non-fumeur'];
-		}
-		else $nonfumeur = null;
-		if (isset($_POST['bagages'])) {
-			$bagages = $_POST['bagages'];
-		}
-		else $bagages = null;
 		$type = $_POST['typeTrajet'];
-		$tableauTrajet = Trajet::getTrajetsByTypeDepartArriveeNonfumeurBagages($type, $depart, $arrivee, $nonfumeur, $bagages);
+		$date = $_POST['date'];
+		$heure = $_POST['heure'];
+		$tableauTrajet = Trajet::getTrajetsByTypeDepartArriveeDateHeure($type, $depart, $arrivee, $date, $heure);
 		foreach ($tableauTrajet as $key => $trajet) {
 			$idTrajet = $trajet['idTrajet'];
 			$tableauEscale[$key] = Trajet::getAllEscaleByTrajet($idTrajet);
 			$tableauNbPassager[$idTrajet] = Trajet::getPassagersNb($idTrajet);
+			$tableauListeFlag[$key] = Trajet::getFlagsByIdTrajet($idTrajet);
 		}
+		$listeAllFlag = Trajet::getAllFlags();
 		//$type = 2; //Afin dans les recherches de savoir dans quel type on est
 		$ListeEscale = Trajet::getAllEscale();
 		//include("../vue/vueAllTrajetLongDepINSA.php");
@@ -32,9 +28,9 @@
 				include("../vue/vueAllTrajetLongDepINSA.php");
 				break;
 		}
-	}
+	/*}
 	else {
 		header("Location:./controlIndex.php");
-	}
+	}*/
 	include("./footer.php");
 ?>
