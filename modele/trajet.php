@@ -577,12 +577,20 @@ class Trajet {
 
 	public static function getTrajetsByTypeDepartArriveeDateHeure($type, $depart, $arrivee, $date, $heure) {
 		global $mysqli;
-		$req = $mysqli->query("SELECT * FROM (SELECT * FROM trajet WHERE typeTrajet = '$type') voyagesType
-	WHERE villedep LIKE '%$depart%'
-	AND villearr LIKE '%$arrivee%'
-	AND dateTrajet LIKE '%$date%'
-	AND heure LIKE '%$heure%'
-	ORDER BY dateTrajet, heure ASC") or die ("ERROR");
+		$req = $mysqli->query("(SELECT trajets.idTrajet, typeTrajet, villedep, villearr, prix, nbpers, duree, description, dateTrajet, heure FROM
+			(SELECT idVille FROM escale
+			WHERE ville LIKE '%$arrivee%') escaleLol,
+			(SELECT * FROM trajet WHERE typeTrajet = '$type') trajets,
+			trajetescale
+		WHERE escaleLol.idVille = trajetescale.idVille
+		AND trajetescale.idTrajet = trajets.idTrajet)
+		UNION
+		(SELECT * FROM (SELECT * FROM trajet WHERE typeTrajet = '$type') voyagesType
+			WHERE villedep LIKE '%$depart%'
+			AND villearr LIKE '%$arrivee%'
+			AND dateTrajet LIKE '%$date%'
+			AND heure LIKE '%$heure%') 
+		ORDER BY dateTrajet ASC") or die ("ERROR");
 		$i = 0;
 		$listeTrajet = [];
 		while($tuple = $req->fetch_array()){
