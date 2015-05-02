@@ -47,7 +47,8 @@ $(function() {
 	$('#heureTraj').keyup(function() {
 	    heureTraj = $('#heureTraj').val();
 	    regexp = new RegExp("[012][0-9][h][0-5][0-9]");
-	    if(regexp.test(heureTraj)){
+	    regexp2 =  new RegExp("[2]*[0-3][h][0-5]*[0-9]*");
+	    if(regexp.test(heureTraj) || regexp2.test(heureTraj)){
 	    	$("#valideHeure").html("Heure valide !");
 	    	valideHeureJS = true;
 	    }

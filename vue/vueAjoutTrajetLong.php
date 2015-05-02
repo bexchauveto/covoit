@@ -34,8 +34,9 @@ $(function() {
 	});
 	$('#dureeTraj').keyup(function() {
 	    dureeTraj = $('#dureeTraj').val();
-	    regexp =  new RegExp("[012]*[0-9][h][0-5]*[0-9]*");
-	    if(regexp.test(dureeTraj)){
+	    regexp =  new RegExp("[01]*[0-9][h][0-5]*[0-9]*");
+	    regexp2 =  new RegExp("[2]*[0-3][h][0-5]*[0-9]*");
+	    if(regexp.test(dureeTraj) || regexp2.test(dureeTraj)){
 			$("#valideDuree").html("Duree valide !");
 			valideDureeJS = true;
 	    }
@@ -59,7 +60,8 @@ $(function() {
 	$('#heureTraj').keyup(function() {
 	    heureTraj = $('#heureTraj').val();
 	    regexp = new RegExp("[012][0-9][h][0-5][0-9]");
-	    if(regexp.test(heureTraj)){
+	    regexp2 =  new RegExp("[2]*[0-3][h][0-5]*[0-9]*");
+	    if(regexp.test(heureTraj) || regexp2.test(heureTraj)){
 	    	$("#valideHeure").html("Heure valide !");
 	    	valideHeureJS = true;
 	    }
