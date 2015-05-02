@@ -363,3 +363,8 @@ caption {
 .centre {
   text-align: center;
 }
+
+#contact {
+  text-decoration:none; 
+  color: #000;
+}
