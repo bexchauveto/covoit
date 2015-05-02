@@ -88,12 +88,16 @@ $(function() {
 
 	});
 	$('#plusVille').click(function(){
+		tabEscale = [];
+		for(var i = 0; i < 8; i++){
+			tabEscale[i] = $('#arret'+(i+1)).val();
+		}
 		nbEscaleJS = $('#nbEscale').val();
 		nbEscaleJS++;
 		if(nbEscaleJS  <= 8){
 			$.ajax({
 	            type: 'GET',
-	            url: '../vue/vueAjoutEscale.php?nb='+nbEscaleJS,
+	            url: '../vue/vueAjoutEscale.php?nb='+nbEscaleJS+"&listeEscale="+tabEscale,
 	            timeout: 3000,
 	            success: function(data) {
 	              $('#villeEscale').html('Nombre de ville intermédiaire : '+nbEscaleJS);
@@ -109,13 +113,16 @@ $(function() {
 		}
 	});
 	$('#moinsVille').click(function(){
+		tabEscale = [];
+		for(var i = 0; i < 8; i++){
+			tabEscale[i] = $('#arret'+(i+1)).val();
+		}
 		nbEscaleJS = $('#nbEscale').val();
 		nbEscaleJS--;
-		console.log(nbEscaleJS);
 		if(nbEscaleJS  >= 0){
 			$.ajax({
 	            type: 'GET',
-	            url: '../vue/vueAjoutEscale.php?nb='+nbEscaleJS,
+	            url: '../vue/vueAjoutEscale.php?nb='+nbEscaleJS+"&listeEscale="+tabEscale,
 	            timeout: 3000,
 	            success: function(data) {
             	  $('#villeEscale').html('Nombre de ville intermédiaire : '+nbEscaleJS);

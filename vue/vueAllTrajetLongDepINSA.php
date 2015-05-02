@@ -48,7 +48,9 @@
 	 	}
 	 	echo rtrim($villesEscales, ", "); //On suprime la dernière virgule et le derneir espace de la liste des escales à afficher
  		echo "</p>";
- 		echo "<p>Le ".$trajet['dateTrajet']." à ".$trajet['heure']." et d'une durée de ".$trajet['duree'].".</p>";
+ 		$tabdate = explode("-", $trajet['dateTrajet']);
+ 		$newdate = $tabdate[2]."/".$tabdate[1]."/".$tabdate[0];
+ 		echo "<p>Le ".$newdate." à ".$trajet['heure']." et d'une durée de ".$trajet['duree'].".</p>";
  		echo "<p>Nombre de place restantes : ";
  		foreach ($tableauNbPassager as $key => $nbPassager) {
  			if($key == $idTrajet){

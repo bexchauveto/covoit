@@ -59,10 +59,14 @@ $(function() {
 	$('#plusLieu').click(function(){
 		nbLieuJS = $('#nbLieu').val();
 		nbLieuJS++;
+		tabEscale = [];
+		for(var i = 0; i < 8; i++){
+			tabEscale[i] = $('#arret'+(i+1)).val();
+		}
 		if(nbLieuJS  <= 8){
 			$.ajax({
 	            type: 'GET',
-	            url: '../vue/vueAjoutLieu.php?nb='+nbLieuJS,
+	            url: '../vue/vueAjoutLieu.php?nb='+nbLieuJS+"&listeEscale="+tabEscale,
 	            timeout: 3000,
 	            success: function(data) {
 	              $('#lieuArret').html('Nombre de lieu intermédiaire : '.nbLieuJS);
@@ -80,10 +84,14 @@ $(function() {
 	$('#moinsLieu').click(function(){
 		nbLieuJS = $('#nbLieu').val();
 		nbLieuJS--;
+		tabEscale = [];
+		for(var i = 0; i < 8; i++){
+			tabEscale[i] = $('#arret'+(i+1)).val();
+		}
 		if(nbLieuJS  >= 0){
 			$.ajax({
 	            type: 'GET',
-	            url: '../vue/vueAjoutLieu.php?nb='+nbLieuJS,
+	            url: '../vue/vueAjoutLieu.php?nb='+nbLieuJS+"&listeEscale="+tabEscale,
 	            timeout: 3000,
 	            success: function(data) {
             	  $('#lieuArret').html('Nombre de lieu intermédiaire : '.nbLieuJS);

@@ -319,10 +319,11 @@ class Trajet {
 
 	public static function getTrajetsByUser($idUser){
 		global $mysqli;
+		$dateToday = Date("Y-m-d");
 		$req = $mysqli->query("SELECT * FROM trajet, (SELECT idTrajet
 														FROM usertrajetcreator
 														WHERE idUser = '$idUser') AS idT
-								WHERE trajet.idTrajet = idT.idTrajet") or die("ERROR");
+								WHERE trajet.idTrajet = idT.idTrajet AND trajet.dateTrajet > '$dateToday'") or die("ERROR");
 		$i=0;
 		$listeTrajets = [];
 		while ($tuple = $req->fetch_array()) {
@@ -335,10 +336,11 @@ class Trajet {
 
 	public static function getTrajetsByPassager($idUser){
 		global $mysqli;
+		$dateToday = Date("Y-m-d");
 		$req = $mysqli->query("SELECT * FROM trajet, (SELECT idTrajet
 														FROM usertrajetpassager
 														WHERE idUser = '$idUser') AS idT
-								WHERE trajet.idTrajet = idT.idTrajet") or die("ERROR");
+								WHERE trajet.idTrajet = idT.idTrajet AND trajet.dateTrajet > '$dateToday'") or die("ERROR");
 		$i=0;
 		$listeTrajets = [];
 		while ($tuple = $req->fetch_array()) {
@@ -351,7 +353,10 @@ class Trajet {
 
 	public static function getTrajetByType($typeTrajet){
 		global $mysqli;
-		$req = $mysqli->query("SELECT * FROM trajet WHERE typeTrajet = '$typeTrajet' ORDER BY dateTrajet ASC") or die ("ERROR");
+		$dateToday = Date("Y-m-d");
+		$date2 = "2015-06-01";
+		$date3 = "2016-01-01";
+		$req = $mysqli->query("SELECT * FROM trajet WHERE typeTrajet = '$typeTrajet' AND dateTrajet > '$dateToday' ORDER BY dateTrajet ASC") or die ("ERROR");
 		$i = 0;
 		$listeTrajet = [];
 		while($tuple = $req->fetch_array()){
