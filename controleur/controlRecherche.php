@@ -6,9 +6,13 @@
 		$depart = $_POST['depart'];
 		$arrivee = $_POST['arrivee'];
 		$type = $_POST['typeTrajet'];
-		$date = $_POST['date'];
+		$date = htmlspecialchars($_POST['date']);
+		$tabdat = explode("/", $date);
+		$newdate = "";
+			$newdate = $tabdat[2]."-".$tabdat[1]."-".$tabdat[0];
+		}
 		$heure = $_POST['heure'];
-		$tableauTrajet = Trajet::getTrajetsByTypeDepartArriveeDateHeure($type, $depart, $arrivee, $date, $heure);
+		$tableauTrajet = Trajet::getTrajetsByTypeDepartArriveeDateHeure($type, $depart, $arrivee, $newdate, $heure);
 		foreach ($tableauTrajet as $key => $trajet) {
 			$idTrajet = $trajet['idTrajet'];
 			$tableauEscale[$key] = Trajet::getAllEscaleByTrajet($idTrajet);
