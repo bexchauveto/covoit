@@ -9,6 +9,7 @@
 		$date = htmlspecialchars($_POST['date']);
 		$tabdat = explode("/", $date);
 		$newdate = "";
+		if (count($tabdat) == 3) {
 			$newdate = $tabdat[2]."-".$tabdat[1]."-".$tabdat[0];
 		}
 		$heure = $_POST['heure'];
