@@ -577,7 +577,50 @@ class Trajet {
 
 	public static function getTrajetsByTypeDepartArriveeDateHeure($type, $depart, $arrivee, $date, $heure) {
 		global $mysqli;
-		$req = $mysqli->query("(SELECT trajets.idTrajet, typeTrajet, villedep, villearr, prix, nbpers, duree, description, dateTrajet, heure FROM
+		$req = $mysqli->query("SELECT DISTINCT idTrajet, typeTrajet, villedep, villearr, prix, nbpers, duree, description, dateTrajet, heure FROM ((SELECT swag.idTrajet, typeTrajet, villedep, villearr, prix, nbpers, duree, description, dateTrajet, heure FROM trajet, (SELECT DISTINCT trajets.idTrajet FROM
+			(SELECT idVille FROM escale
+			WHERE ville LIKE '%$arrivee%') escaleLol,
+			(SELECT * FROM trajet WHERE typeTrajet = '$type') trajets,
+			trajetescale
+		WHERE escaleLol.idVille = trajetescale.idVille
+		AND trajetescale.idTrajet = trajets.idTrajet) swag
+WHERE trajet.idTrajet = swag.idTrajet)
+UNION
+(SELECT idTrajet, typeTrajet, villedep, villearr, prix, nbpers, duree, description, dateTrajet, heure FROM (SELECT * FROM trajet WHERE typeTrajet = '$type') voyagesType
+			WHERE villedep LIKE '%$depart%'
+			AND villearr LIKE '%$arrivee%'
+			AND dateTrajet LIKE '%$date%'
+			AND heure LIKE '%$heure%')) inswag
+WHERE (idTrajet, typeTrajet, villedep, villearr, prix, nbpers, duree, description, dateTrajet, heure) NOT IN
+(SELECT idTrajet, typeTrajet, villedep, villearr, prix, nbpers, duree, description, dateTrajet, heure FROM (SELECT * FROM trajet WHERE typeTrajet = '$type') voyagesType
+			WHERE villedep NOT LIKE '%$depart%'
+			OR villearr NOT LIKE '%$arrivee%'
+			OR dateTrajet NOT LIKE '%$date%'
+			OR heure NOT LIKE '%$heure%')") or die ("ERROR");
+
+		/*$req = $mysqli->query("(SELECT swag.idTrajet, typeTrajet, villedep, villearr, prix, nbpers, duree, description, dateTrajet, heure FROM trajet, (SELECT DISTINCT trajets.idTrajet FROM
+			(SELECT idVille FROM escale
+			WHERE ville LIKE '%$arrivee%') escaleLol,
+			(SELECT * FROM trajet WHERE typeTrajet = '$type') trajets,
+			trajetescale
+		WHERE escaleLol.idVille = trajetescale.idVille
+		AND trajetescale.idTrajet = trajets.idTrajet
+		AND trajets.idTrajet IN
+		(SELECT idTrajet FROM (SELECT * FROM trajet WHERE typeTrajet = '$type') voyagesType
+			WHERE villedep LIKE '%$depart%'
+			AND villearr LIKE '%$arrivee%'
+			AND dateTrajet LIKE '%$date%'
+			AND heure LIKE '%$heure%')) swag
+WHERE trajet.idTrajet = swag.idTrajet)
+UNION
+(SELECT * FROM (SELECT * FROM trajet WHERE typeTrajet = '$type') voyagesType
+			WHERE villedep LIKE '%$depart%'
+			AND villearr LIKE '%$arrivee%'
+			AND dateTrajet LIKE '%$date%'
+			AND heure LIKE '%$heure%')") or die ("ERROR");*/
+
+
+		/*$req = $mysqli->query("(SELECT trajets.idTrajet, typeTrajet, villedep, villearr, prix, nbpers, duree, description, dateTrajet, heure FROM
 			(SELECT idVille FROM escale
 			WHERE ville LIKE '%$arrivee%') escaleLol,
 			(SELECT * FROM trajet WHERE typeTrajet = '$type') trajets,
@@ -590,7 +633,7 @@ class Trajet {
 			AND villearr LIKE '%$arrivee%'
 			AND dateTrajet LIKE '%$date%'
 			AND heure LIKE '%$heure%') 
-		ORDER BY dateTrajet ASC") or die ("ERROR");
+		ORDER BY dateTrajet ASC") or die ("ERROR");*/
 		$i = 0;
 		$listeTrajet = [];
 		while($tuple = $req->fetch_array()){
@@ -600,6 +643,27 @@ class Trajet {
 		return $listeTrajet;		
 	}
 
+
+/*(SELECT swag.idTrajet, typeTrajet, villedep, villearr, prix, nbpers, duree, description, dateTrajet, heure FROM trajet, (SELECT DISTINCT trajets.idTrajet FROM
+			(SELECT idVille FROM escale
+			WHERE ville LIKE '%%') escaleLol,
+			(SELECT * FROM trajet WHERE typeTrajet = '2') trajets,
+			trajetescale
+		WHERE escaleLol.idVille = trajetescale.idVille
+		AND trajetescale.idTrajet = trajets.idTrajet
+		AND trajets.idTrajet IN
+		(SELECT idTrajet FROM (SELECT * FROM trajet WHERE typeTrajet = '2') voyagesType
+			WHERE villedep LIKE '%%'
+			AND villearr LIKE '%%'
+			AND dateTrajet LIKE '%%'
+			AND heure LIKE '%%')) swag
+WHERE trajet.idTrajet = swag.idTrajet)
+UNION
+(SELECT * FROM (SELECT * FROM trajet WHERE typeTrajet = '2') voyagesType
+			WHERE villedep LIKE '%%'
+			AND villearr LIKE '%%'
+			AND dateTrajet LIKE '%%'
+			AND heure LIKE '%%')*/
 
 }
 
